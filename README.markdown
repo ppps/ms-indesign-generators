@@ -1,6 +1,4 @@
-# Feral Four
-
-## Morning Star page generators
+# Morning Star page generators
 
 These script files, with the exception of St Ann's.scpt, are section-specific page generators for the Morning Star.
 
