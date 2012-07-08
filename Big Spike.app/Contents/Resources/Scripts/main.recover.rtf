@@ -1,0 +1,1967 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf470
+{\fonttbl\f0\fnil\fcharset0 Verdana;\f1\fnil\fcharset0 LucidaGrande;}
+{\colortbl;\red255\green255\blue255;\red76\green78\blue78;\red0\green0\blue0;\red64\green128\blue0;
+\red0\green22\blue176;\red0\green0\blue255;\red108\green5\blue211;\red68\green21\blue176;\red74\green30\blue127;
+}
+\deftab480
+\pard\pardeftab480\slleading20\pardirnatural
+
+\f0\fs24 \cf2 --	Big Spike, a better Morning Star features-page generator\cf3 \
+\
+\cf2 --	Written by			Rob Wells\cf3 \
+\cf2 --	Created on			June 16th 2012\cf3 \
+\cf2 --	Last updated		July 7th 2012\cf3 \
+\
+\cf2 (* Description: This generates the pages needed by the features and arts desks. It has a different name because it\'92s written in a very different way to previous scripts and isn\'92t finished.	*)\cf3 \
+\
+\cf2 (* Status: Updated handlers, now stored in St Ann's.scpt, Finder activation at script end, InDesign to ignore dialogs while the script runs. *)\cf3 \
+\
+\
+\cf2 -- Global variables that are needed in handlers at some point --\cf3 \
+
+\b global
+\b0  \cf4 theDay\cf3 \
+
+\b global
+\b0  \cf4 theMonth\cf3 \
+
+\b global
+\b0  \cf4 theDate\cf3 \
+
+\b global
+\b0  \cf4 theYear\cf3 \
+
+\b global
+\b0  \cf4 months_list\cf3 \
+
+\b global
+\b0  \cf4 fileSlug\cf3  \cf2 -- The short code used at the start of the new file\'92s name\cf3 \
+
+\b global
+\b0  \cf4 fileDate\cf3  \cf2 -- The short date used to name the InDesign files\cf3 \
+
+\b global
+\b0  \cf4 pageDate\cf3  \cf2 -- The full date used in the InDesign page\'92s folio\cf3 \
+
+\b global
+\b0  \cf4 freshPagesFolder\cf3  \cf2 -- Where the newly created files are saved\cf3 \
+
+\b global
+\b0  \cf4 masterDocument\cf3  \cf2 -- The actual InDesign master document\cf3 \
+
+\b global
+\b0  \cf4 masterName\cf3  \cf2 -- The name of the master page/spread to be applied in InDesign\cf3 \
+\
+\
+\cf2 -- Unchanging variables --\cf3 \
+
+\b set
+\b0  \cf4 freshPagesFolder\cf3  
+\b to
+\b0  "Server:Production resources:Master pages:Fresh pages:"\
+
+\b set
+\b0  \cf4 masterDocument\cf3  
+\b to
+\b0  "Server:Production resources:Master pages:CS4 Master.indd"\
+\
+
+\b set
+\b0  \cf4 weekday_pages\cf3  
+\b to
+\b0  \{"Spread", "10", "12-13", "Letters", "Arts", "Arts split"\}\
+
+\b set
+\b0  \cf4 weekend_pages\cf3  
+\b to
+\b0  \{"Spread", "News reviews \'97 split", "News reviews \'97 singles", "15", "16-17", "Letters"\}\
+
+\b set
+\b0  \cf4 ahead_pages\cf3  
+\b to
+\b0  \{"Spread", "10", "12-13", "News reviews \'97 split", "News reviews \'97 singles", "15", "16-17", "Letters", "Arts", "Arts split"\}\
+\
+
+\b set
+\b0  \cf4 days_list\cf3  
+\b to
+\b0  \{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "No day \'97 working ahead"\}\
+
+\b set
+\b0  \cf4 months_list\cf3  
+\b to
+\b0  \{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"\}\
+\
+\
+\cf2 -- User prompts --\cf3 \
+\
+\cf2 (*Get the date *)\cf3 \
+
+\b set
+\b0  \cf4 theDay\cf3  
+\b to
+\b0  (
+\b \cf5 choose from list
+\b0 \cf3  \cf4 days_list\cf3  \cf5 with prompt\cf3  "Please pick the edition day:" \cf5 with title\cf3  "Features pages generator") 
+\b as
+\b0  
+\i \cf6 string
+\i0 \cf3 \
+
+\b if
+\b0  \cf7 result\cf3  
+\b is
+\b0  "false" 
+\b then
+\b0  
+\b error
+\b0  \cf6 number\cf3  -128\
+
+\b if
+\b0  \cf4 theDay\cf3  
+\b is
+\b0  
+\b not
+\b0  "No day \'97 working ahead" 
+\b then
+\b0 \
+	
+\b set
+\b0  \cf4 theMonth\cf3  
+\b to
+\b0  (
+\b \cf5 choose from list
+\b0 \cf3  \cf4 months_list\cf3  \cf5 with prompt\cf3  "Please pick the month:" \cf5 with title\cf3  "Features pages generator") 
+\b as
+\b0  
+\i \cf6 string
+\i0 \cf3 \
+	
+\b if
+\b0  \cf7 result\cf3  
+\b is
+\b0  "false" 
+\b then
+\b0  
+\b error
+\b0  \cf6 number\cf3  -128\
+	
+\b set
+\b0  \cf4 theDate\cf3  
+\b to
+\b0  
+\b the
+\b0  \cf8 text returned\cf3  
+\b of
+\b0  (
+\b \cf5 display dialog
+\b0 \cf3  "Please type the date:" \cf5 default answer\cf3  "" \cf5 with title\cf3  "Features pages generator") 
+\b as
+\b0  
+\i \cf6 string
+\i0 \cf3 \
+	
+\b if
+\b0  \cf7 result\cf3  
+\b is
+\b0  "false" 
+\b then
+\b0  
+\b error
+\b0  \cf6 number\cf3  -128\
+	
+\b set
+\b0  \cf4 theYear\cf3  
+\b to
+\b0  
+\b the
+\b0  \cf8 text returned\cf3  
+\b of
+\b0  (
+\b \cf5 display dialog
+\b0 \cf3  "Please type the year:" \cf5 default answer\cf3  "" \cf5 with title\cf3  "Features pages generator") 
+\b as
+\b0  
+\i \cf6 string
+\i0 \cf3 \
+	
+\b if
+\b0  \cf7 result\cf3  
+\b is
+\b0  "false" 
+\b then
+\b0  
+\b error
+\b0  \cf6 number\cf3  -128\
+
+\b end
+\b0  
+\b if
+\b0 \
+\
+\cf2 (*Get the pages to create*)\cf3 \
+
+\b if
+\b0  \cf4 theDay\cf3  
+\b is
+\b0  "No day \'97 working ahead" 
+\b then
+\b0 \
+	
+\b set
+\b0  \cf4 mastersToGenerate\cf3  
+\b to
+\b0  (
+\b \cf5 choose from list
+\b0 \cf3  \cf4 ahead_pages\cf3  \cf5 with prompt\cf3  ("Which pages do you want to create?" & \cf7 return\cf3  & \cf7 return\cf3  & "Hold down Command (
+\f1 \uc0\u8984 
+\f0 ) to pick more than one.") \cf5 with title\cf3  "Features pages generator" 
+\b with
+\b0  \cf5 multiple selections allowed\cf3 )\
+	
+\b if
+\b0  \cf7 result\cf3  
+\b is
+\b0  \cf9 false\cf3  
+\b then
+\b0  
+\b error
+\b0  \cf6 number\cf3  -128\
+
+\b else
+\b0  
+\b if
+\b0  \cf4 theDay\cf3  
+\b is
+\b0  
+\b not
+\b0  "Saturday" 
+\b then
+\b0 \
+	
+\b set
+\b0  \cf4 mastersToGenerate\cf3  
+\b to
+\b0  (
+\b \cf5 choose from list
+\b0 \cf3  \cf4 weekday_pages\cf3  \cf5 with prompt\cf3  ("Which pages do you want to create?" & \cf7 return\cf3  & \cf7 return\cf3  & "Hold down Command (
+\f1 \uc0\u8984 
+\f0 ) to pick more than one.") \cf5 with title\cf3  "Features pages generator" 
+\b with
+\b0  \cf5 multiple selections allowed\cf3 )\
+	
+\b if
+\b0  \cf7 result\cf3  
+\b is
+\b0  \cf9 false\cf3  
+\b then
+\b0  
+\b error
+\b0  \cf6 number\cf3  -128\
+
+\b else
+\b0  
+\b if
+\b0  \cf4 theDay\cf3  
+\b is
+\b0  "Saturday" 
+\b then
+\b0 \
+	
+\b set
+\b0  \cf4 mastersToGenerate\cf3  
+\b to
+\b0  (
+\b \cf5 choose from list
+\b0 \cf3  \cf4 weekend_pages\cf3  \cf5 with prompt\cf3  ("Which pages do you want to create?" & \cf7 return\cf3  & \cf7 return\cf3  & "Hold down Command (
+\f1 \uc0\u8984 
+\f0 ) to pick more than one.") \cf5 with title\cf3  "Features pages generator" 
+\b with
+\b0  \cf5 multiple selections allowed\cf3 )\
+	
+\b if
+\b0  \cf7 result\cf3  
+\b is
+\b0  \cf9 false\cf3  
+\b then
+\b0  
+\b error
+\b0  \cf6 number\cf3  -128\
+
+\b end
+\b0  
+\b if
+\b0 \
+\
+\
+\cf2 -- Create the date --\cf3 \
+\
+
+\b if
+\b0  \cf4 theDay\cf3  
+\b is
+\b0  "No day \'97 working ahead" 
+\b then
+\b0 \
+	
+\b set
+\b0  \cf4 pageDate\cf3  
+\b to
+\b0  "A date needs entering"\
+	
+\b set
+\b0  \cf4 fileDate\cf3  
+\b to
+\b0  "Ahead"\
+
+\b else
+\b0 \
+	\cf4 create_pageDate\cf3 ()\
+	\cf4 create_fileDate\cf3 ()\
+
+\b end
+\b0  
+\b if
+\b0 \
+\
+\
+\cf2 -- Generate the pages --\cf3 \
+\
+
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5" 
+\b to
+\b0  
+\b set
+\b0  \cf7 user interaction level\cf3  
+\b of
+\b0  \cf7 script preferences\cf3  
+\b to
+\b0  \cf9 never interact\cf3 \
+\
+
+\b if
+\b0  "Spread" 
+\b is
+\b0  
+\b in
+\b0  \cf4 mastersToGenerate\cf3  
+\b then
+\b0 \
+	
+\b set
+\b0  \cf4 masterName\cf3  
+\b to
+\b0  "Feat-Spread"\
+	
+\b if
+\b0  \cf4 theDay\cf3  
+\b is
+\b0  "Saturday" 
+\b then
+\b0 \
+		
+\b set
+\b0  \cf4 fileSlug\cf3  
+\b to
+\b0  "12-13_Features"\
+		
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+			
+\b \cf6 open
+\b0 \cf3  \cf4 masterDocument\cf3 \
+			
+\b my
+\b0  \cf4 applyMaster_changeDate_spread\cf3 ()\
+			
+\b my
+\b0  \cf4 changePageNumber_spread\cf3 ("12")\
+			
+\b my
+\b0  \cf4 clean_save_L\cf3 ()\
+			
+\b tell
+\b0  
+\b the
+\b0  \cf7 active document\cf3  
+\b to
+\b0  
+\b \cf6 close
+\b0 \cf3  \cf6 saving\cf3  \cf9 yes\cf3 \
+		
+\b end
+\b0  
+\b tell
+\b0 \
+	
+\b else
+\b0 \
+		
+\b set
+\b0  \cf4 fileSlug\cf3  
+\b to
+\b0  "8-9_Features"\
+		
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+			
+\b \cf6 open
+\b0 \cf3  \cf4 masterDocument\cf3 \
+			
+\b my
+\b0  \cf4 applyMaster_changeDate_spread\cf3 ()\
+			
+\b my
+\b0  \cf4 changePageNumber_spread\cf3 ("8")\
+			
+\b my
+\b0  \cf4 clean_save_L\cf3 ()\
+			
+\b tell
+\b0  
+\b the
+\b0  \cf7 active document\cf3  
+\b to
+\b0  
+\b \cf6 close
+\b0 \cf3  \cf6 saving\cf3  \cf9 yes\cf3 \
+		
+\b end
+\b0  
+\b tell
+\b0 \
+	
+\b end
+\b0  
+\b if
+\b0 \
+
+\b end
+\b0  
+\b if
+\b0 \
+\
+\
+
+\b if
+\b0  "10" 
+\b is
+\b0  
+\b in
+\b0  \cf4 mastersToGenerate\cf3  
+\b then
+\b0 \
+	
+\b set
+\b0  \cf4 masterName\cf3  
+\b to
+\b0  "Feat-10"\
+	
+\b set
+\b0  \cf4 fileSlug\cf3  
+\b to
+\b0  "10_Features"\
+	
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+		
+\b \cf6 open
+\b0 \cf3  \cf4 masterDocument\cf3 \
+		
+\b my
+\b0  \cf4 applyMaster_changeDate_single\cf3 ()\
+		
+\b my
+\b0  \cf4 clean_save_L\cf3 ()\
+		
+\b tell
+\b0  \cf7 active document\cf3  
+\b to
+\b0  
+\b \cf6 close
+\b0 \cf3  \cf6 saving\cf3  \cf9 yes\cf3 \
+	
+\b end
+\b0  
+\b tell
+\b0 \
+
+\b end
+\b0  
+\b if
+\b0 \
+\
+\
+
+\b if
+\b0  "12-13" 
+\b is
+\b0  
+\b in
+\b0  \cf4 mastersToGenerate\cf3  
+\b then
+\b0 \
+	
+\b set
+\b0  \cf4 masterName\cf3  
+\b to
+\b0  "Feat-12-13" \cf2 -- Create the weekday TV/features page\cf3 \
+	
+\b set
+\b0  \cf4 fileSlug\cf3  
+\b to
+\b0  "12-13_TV"\
+	
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+		
+\b \cf6 open
+\b0 \cf3  \cf4 masterDocument\cf3 \
+		
+\b my
+\b0  \cf4 applyMaster_changeDate_spread\cf3 ()\
+		
+\b my
+\b0  \cf4 changeLegalDate_12\cf3 ()\
+		
+\b my
+\b0  \cf4 clean_save_L\cf3 ()\
+		
+\b tell
+\b0  
+\b the
+\b0  \cf7 active document\cf3  
+\b to
+\b0  
+\b \cf6 close
+\b0 \cf3  \cf6 saving\cf3  \cf9 yes\cf3 \
+	
+\b end
+\b0  
+\b tell
+\b0 \
+
+\b end
+\b0  
+\b if
+\b0 \
+\
+\
+
+\b if
+\b0  "News reviews \'97 split" 
+\b is
+\b0  
+\b in
+\b0  \cf4 mastersToGenerate\cf3  
+\b then
+\b0 \
+	
+\b set
+\b0  \cf4 masterName\cf3  
+\b to
+\b0  "Feat-News reviews"\
+	
+\b set
+\b0  \cf4 fileSlug\cf3  
+\b to
+\b0  "8-9_NewsReview"\
+	
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+		
+\b \cf6 open
+\b0 \cf3  \cf4 masterDocument\cf3 \
+		
+\b my
+\b0  \cf4 applyMaster_changeDate_spread\cf3 ()\
+		
+\b my
+\b0  \cf4 clean_save_L\cf3 ()\
+		
+\b tell
+\b0  
+\b the
+\b0  \cf7 active document\cf3  
+\b to
+\b0  
+\b \cf6 close
+\b0 \cf3  \cf6 saving\cf3  \cf9 yes\cf3 \
+	
+\b end
+\b0  
+\b tell
+\b0 \
+
+\b end
+\b0  
+\b if
+\b0 \
+\
+
+\b if
+\b0  "News reviews \'97 singles" 
+\b is
+\b0  
+\b in
+\b0  \cf4 mastersToGenerate\cf3  
+\b then
+\b0 \
+	
+\b set
+\b0  \cf4 masterName\cf3  
+\b to
+\b0  "Feat-NewsRev Left"\
+	
+\b set
+\b0  \cf4 fileSlug\cf3  
+\b to
+\b0  "8_NewsReview"\
+	
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+		
+\b \cf6 open
+\b0 \cf3  \cf4 masterDocument\cf3 \
+		
+\b my
+\b0  \cf4 applyMaster_changeDate_single\cf3 ()\
+		
+\b my
+\b0  \cf4 clean_save_L\cf3 ()\
+		
+\b tell
+\b0  
+\b the
+\b0  \cf7 active document\cf3  
+\b to
+\b0  
+\b \cf6 close
+\b0 \cf3  \cf6 saving\cf3  \cf9 yes\cf3 \
+	
+\b end
+\b0  
+\b tell
+\b0 \
+	\
+	
+\b set
+\b0  \cf4 masterName\cf3  
+\b to
+\b0  "Feat-NewsRev Right"\
+	
+\b set
+\b0  \cf4 fileSlug\cf3  
+\b to
+\b0  "9_NewsReview"\
+	
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+		
+\b \cf6 open
+\b0 \cf3  \cf4 masterDocument\cf3 \
+		
+\b my
+\b0  \cf4 applyMaster_changeDate_single\cf3 ()\
+		
+\b my
+\b0  \cf4 clean_save_R\cf3 ()\
+		
+\b tell
+\b0  
+\b the
+\b0  \cf7 active document\cf3  
+\b to
+\b0  
+\b \cf6 close
+\b0 \cf3  \cf6 saving\cf3  \cf9 yes\cf3 \
+	
+\b end
+\b0  
+\b tell
+\b0 \
+
+\b end
+\b0  
+\b if
+\b0 \
+\
+\
+
+\b if
+\b0  "15" 
+\b is
+\b0  
+\b in
+\b0  \cf4 mastersToGenerate\cf3  
+\b then
+\b0 \
+	
+\b set
+\b0  \cf4 masterName\cf3  
+\b to
+\b0  "Feat-15"\
+	
+\b set
+\b0  \cf4 fileSlug\cf3  
+\b to
+\b0  "15_Features"\
+	
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+		
+\b \cf6 open
+\b0 \cf3  \cf4 masterDocument\cf3 \
+		
+\b my
+\b0  \cf4 applyMaster_changeDate_single\cf3 ()\
+		
+\b my
+\b0  \cf4 clean_save_R\cf3 ()\
+		
+\b tell
+\b0  \cf7 active document\cf3  
+\b to
+\b0  
+\b \cf6 close
+\b0 \cf3  \cf6 saving\cf3  \cf9 yes\cf3 \
+	
+\b end
+\b0  
+\b tell
+\b0 \
+
+\b end
+\b0  
+\b if
+\b0 \
+\
+\
+
+\b if
+\b0  "16-17" 
+\b is
+\b0  
+\b in
+\b0  \cf4 mastersToGenerate\cf3  
+\b then
+\b0  \cf2 -- Create the weekend Ents/Arts page\cf3 \
+	
+\b set
+\b0  \cf4 masterName\cf3  
+\b to
+\b0  "Arts-16-17"\
+	
+\b set
+\b0  \cf4 fileSlug\cf3  
+\b to
+\b0  "16-17_Ents-Arts"\
+	
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+		
+\b \cf6 open
+\b0 \cf3  \cf4 masterDocument\cf3 \
+		
+\b my
+\b0  \cf4 applyMaster_changeDate_spread\cf3 ()\
+		
+\b my
+\b0  \cf4 clean_save_L\cf3 ()\
+		
+\b tell
+\b0  
+\b the
+\b0  \cf7 active document\cf3  
+\b to
+\b0  
+\b \cf6 close
+\b0 \cf3  \cf6 saving\cf3  \cf9 yes\cf3 \
+	
+\b end
+\b0  
+\b tell
+\b0 \
+
+\b end
+\b0  
+\b if
+\b0 \
+\
+\
+
+\b if
+\b0  "Letters" 
+\b is
+\b0  
+\b in
+\b0  \cf4 mastersToGenerate\cf3  
+\b then
+\b0 \
+	
+\b set
+\b0  \cf4 masterName\cf3  
+\b to
+\b0  "Feat-Letters"\
+	
+\b set
+\b0  \cf4 p10_days\cf3  
+\b to
+\b0  \{"Monday", "Wednesday"\} \cf2 -- These two lists determine what the page number will be\cf3 \
+	
+\b set
+\b0  \cf4 p14_days\cf3  
+\b to
+\b0  \{"Tuesday", "Thursday", "Friday", "Saturday", "No day \'97 working ahead"\}\
+	\
+	
+\b if
+\b0  \cf4 theDay\cf3  
+\b is
+\b0  
+\b in
+\b0  \cf4 p10_days\cf3  
+\b then
+\b0 \
+		
+\b set
+\b0  
+\b the
+\b0  \cf4 fileSlug\cf3  
+\b to
+\b0  "10_Letters"\
+		
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+			
+\b \cf6 open
+\b0 \cf3  \cf4 masterDocument\cf3 \
+			
+\b my
+\b0  \cf4 applyMaster_changeDate_single\cf3 ()\
+			
+\b my
+\b0  \cf4 changePageNumber_single\cf3 ("10")\
+			
+\b my
+\b0  \cf4 clean_save_L\cf3 ()\
+			
+\b tell
+\b0  \cf7 active document\cf3  
+\b to
+\b0  
+\b \cf6 close
+\b0 \cf3  \cf6 saving\cf3  \cf9 yes\cf3 \
+		
+\b end
+\b0  
+\b tell
+\b0 \
+		\
+	
+\b else
+\b0  
+\b if
+\b0  \cf4 theDay\cf3  
+\b is
+\b0  
+\b in
+\b0  \cf4 p14_days\cf3  
+\b then
+\b0 \
+		
+\b set
+\b0  
+\b the
+\b0  \cf4 fileSlug\cf3  
+\b to
+\b0  "14_Letters"\
+		
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+			
+\b \cf6 open
+\b0 \cf3  \cf4 masterDocument\cf3 \
+			
+\b my
+\b0  \cf4 applyMaster_changeDate_single\cf3 ()\
+			
+\b my
+\b0  \cf4 changePageNumber_single\cf3 ("14")\
+			
+\b my
+\b0  \cf4 clean_save_L\cf3 ()\
+			
+\b tell
+\b0  \cf7 active document\cf3  
+\b to
+\b0  
+\b \cf6 close
+\b0 \cf3  \cf6 saving\cf3  \cf9 yes\cf3 \
+		
+\b end
+\b0  
+\b tell
+\b0 \
+	
+\b end
+\b0  
+\b if
+\b0 \
+
+\b end
+\b0  
+\b if
+\b0 \
+\
+\
+\
+
+\b if
+\b0  "Arts" 
+\b is
+\b0  
+\b in
+\b0  \cf4 mastersToGenerate\cf3  
+\b then
+\b0  \cf2 -- Create the weekday Arts page (11)\cf3 \
+	
+\b set
+\b0  \cf4 masterName\cf3  
+\b to
+\b0  "Arts-11"\
+	
+\b set
+\b0  \cf4 fileSlug\cf3  
+\b to
+\b0  "11_Arts"\
+	
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+		
+\b \cf6 open
+\b0 \cf3  \cf4 masterDocument\cf3 \
+		
+\b my
+\b0  \cf4 applyMaster_changeDate_single\cf3 ()\
+		
+\b my
+\b0  \cf4 clean_save_R\cf3 ()\
+		
+\b tell
+\b0  \cf7 active document\cf3  
+\b to
+\b0  
+\b \cf6 close
+\b0 \cf3  \cf6 saving\cf3  \cf9 yes\cf3 \
+	
+\b end
+\b0  
+\b tell
+\b0 \
+
+\b end
+\b0  
+\b if
+\b0 \
+\
+\
+
+\b if
+\b0  "Arts split" 
+\b is
+\b0  
+\b in
+\b0  \cf4 mastersToGenerate\cf3  
+\b then
+\b0 \
+	
+\b set
+\b0  \cf4 masterName\cf3  
+\b to
+\b0  "Arts-Split"\
+	
+\b set
+\b0  \cf4 fileSlug\cf3  
+\b to
+\b0  "10-11_Arts"\
+	
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+		
+\b \cf6 open
+\b0 \cf3  \cf4 masterDocument\cf3 \
+		
+\b my
+\b0  \cf4 applyMaster_changeDate_spread\cf3 ()\
+		
+\b my
+\b0  \cf4 clean_save_L\cf3 ()\
+		
+\b tell
+\b0  
+\b the
+\b0  \cf7 active document\cf3  
+\b to
+\b0  
+\b \cf6 close
+\b0 \cf3  \cf6 saving\cf3  \cf9 yes\cf3 \
+	
+\b end
+\b0  
+\b tell
+\b0 \
+
+\b end
+\b0  
+\b if
+\b0 \
+\
+\
+
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5" 
+\b to
+\b0  
+\b set
+\b0  \cf7 user interaction level\cf3  
+\b of
+\b0  \cf7 script preferences\cf3  
+\b to
+\b0  \cf9 interact with all\cf3 \
+\
+
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Finder"\
+	
+\b \cf6 activate
+\b0 \cf3 \
+	
+\b \cf6 open
+\b0 \cf3  \cf4 freshPagesFolder\cf3 \
+
+\b end
+\b0  
+\b tell
+\b0 \
+\
+\
+\cf2 -- Handler definitions --\cf3 \
+\
+\
+\cf2 (*	Create the date used on the InDesign pages, and deal with some Saturday oddities	*)\cf3 \
+
+\b on
+\b0  \cf4 create_pageDate\cf3 ()\
+	
+\b set
+\b0  \cf4 ThirtyOneDayMonths\cf3  
+\b to
+\b0  \{"January", "March", "May", "July", "August", "October"\}\
+	
+\b set
+\b0  \cf4 ThirtyDayMonths\cf3  
+\b to
+\b0  \{"April", "June", "September", "November"\}\
+	\
+	
+\b if
+\b0  \cf4 theDay\cf3  
+\b is
+\b0  
+\b not
+\b0  "Saturday" 
+\b then
+\b0  \cf2 -- Does the page date for every weekday\cf3 \
+		
+\b set
+\b0  \cf4 pageDate\cf3  
+\b to
+\b0  (\cf4 theDay\cf3  & " " & \cf4 theMonth\cf3  & " " & \cf4 theDate\cf3  & " " & \cf4 theYear\cf3 )\
+		\
+	
+\b else
+\b0  
+\b if
+\b0  \cf4 theDay\cf3  
+\b is
+\b0  "Saturday" 
+\b and
+\b0  \cf4 theDate\cf3  
+\b is
+\b0  "30" 
+\b and
+\b0  \cf4 theMonth\cf3  
+\b is
+\b0  
+\b in
+\b0  \cf4 ThirtyDayMonths\cf3  
+\b then
+\b0  \cf2 -- Deals with Saturdays at the end of 30-day months (uses list above)\cf3 \
+		
+\b repeat
+\b0  
+\b with
+\b0  \cf4 i\cf3  
+\b from
+\b0  1 
+\b to
+\b0  
+\b \cf6 count
+\b0 \cf3  
+\b of
+\b0  \cf4 months_list\cf3  \cf2 -- This repeat block here grabs the name of the next month to use in the page date\cf3 \
+			
+\b if
+\b0  
+\i \cf6 item
+\i0 \cf3  \cf4 i\cf3  
+\b of
+\b0  \cf4 months_list\cf3  
+\b is
+\b0  \cf4 theMonth\cf3  
+\b then
+\b0  
+\b set
+\b0  \cf4 secondMonth\cf3  
+\b to
+\b0  (
+\i \cf6 item
+\i0 \cf3  (\cf4 i\cf3  + 1) 
+\b of
+\b0  \cf4 months_list\cf3 )\
+		
+\b end
+\b0  
+\b repeat
+\b0 \
+		
+\b set
+\b0  \cf4 pageDate\cf3  
+\b to
+\b0  ("Saturday/Sunday " & \cf4 theMonth\cf3  & " 30-" & \cf4 secondMonth\cf3  & " 1 " & \cf4 theYear\cf3 ) \cf2 -- This will produce something such as "Saturday/Sunday April 30-May 1 2012"\cf3 \
+		\
+	
+\b else
+\b0  
+\b if
+\b0  \cf4 theDay\cf3  
+\b is
+\b0  "Saturday" 
+\b and
+\b0  \cf4 theDate\cf3  
+\b is
+\b0  "31" 
+\b and
+\b0  \cf4 theMonth\cf3  
+\b is
+\b0  
+\b in
+\b0  \cf4 ThirtyOneDayMonths\cf3  
+\b then
+\b0  \cf2 -- Deals with Saturdays at the end of 31-day months (uses list above)\cf3 \
+		
+\b repeat
+\b0  
+\b with
+\b0  \cf4 i\cf3  
+\b from
+\b0  1 
+\b to
+\b0  
+\b \cf6 count
+\b0 \cf3  
+\b of
+\b0  \cf4 months_list\cf3 \
+			
+\b if
+\b0  
+\i \cf6 item
+\i0 \cf3  \cf4 i\cf3  
+\b of
+\b0  \cf4 months_list\cf3  
+\b is
+\b0  \cf4 theMonth\cf3  
+\b then
+\b0  
+\b set
+\b0  \cf4 secondMonth\cf3  
+\b to
+\b0  (
+\i \cf6 item
+\i0 \cf3  (\cf4 i\cf3  + 1) 
+\b of
+\b0  \cf4 months_list\cf3 )\
+		
+\b end
+\b0  
+\b repeat
+\b0 \
+		
+\b set
+\b0  \cf4 pageDate\cf3  
+\b to
+\b0  ("Saturday/Sunday " & \cf4 theMonth\cf3  & " 31-" & \cf4 secondMonth\cf3  & " 1 " & \cf4 theYear\cf3 )\
+		\
+	
+\b else
+\b0  
+\b if
+\b0  \cf4 theDay\cf3  
+\b is
+\b0  "Saturday" 
+\b and
+\b0  \cf4 theDate\cf3  
+\b is
+\b0  
+\b greater than
+\b0  "27" 
+\b and
+\b0  \cf4 theMonth\cf3  
+\b is
+\b0  "February" 
+\b then
+\b0  \cf2 -- Deals with Saturdays at the end of February. Fun fact: it\'92s quite blunt but won\'92t produce the wrong date until 2032.\cf3 \
+		
+\b set
+\b0  \cf4 pageDate\cf3  
+\b to
+\b0  ("Saturday/Sunday February " & \cf4 theDate\cf3  & "-March 1 " & \cf4 theYear\cf3 )\
+		\
+	
+\b else
+\b0  
+\b if
+\b0  \cf4 theDay\cf3  
+\b is
+\b0  "Saturday" 
+\b and
+\b0  \cf4 theDate\cf3  
+\b is
+\b0  "31" 
+\b and
+\b0  \cf4 theMonth\cf3  
+\b is
+\b0  "December" 
+\b then
+\b0  \cf2 -- Deals with Saturdays at the end of December\cf3 \
+		
+\b set
+\b0  \cf4 pageDate\cf3  
+\b to
+\b0  ("Saturday/Sunday December 31-January 1 " & \cf4 theYear\cf3  & "-" & (\cf4 theYear\cf3  + 1))\
+		\
+	
+\b else
+\b0  
+\b if
+\b0  \cf4 theDay\cf3  
+\b is
+\b0  "Saturday" 
+\b then
+\b0  \cf2 -- Does the page date for every normal Saturday\cf3 \
+		
+\b set
+\b0  \cf4 pageDate\cf3  
+\b to
+\b0  ("Saturday/Sunday " & \cf4 theMonth\cf3  & " " & \cf4 theDate\cf3  & "-" & (\cf4 theDate\cf3  + 1) & " " & \cf4 theYear\cf3 )\
+		\
+	
+\b end
+\b0  
+\b if
+\b0 \
+
+\b end
+\b0  \cf4 create_pageDate\cf3 \
+\
+\
+\cf2 (*	Create the short date to name the created InDesign files	*)\cf3 \
+
+\b on
+\b0  \cf4 create_fileDate\cf3 ()\
+	
+\b if
+\b0  \cf4 theDate\cf3  
+\b as
+\b0  
+\i \cf6 integer
+\i0 \cf3  
+\b is
+\b0  
+\b less than
+\b0  "10" 
+\b then
+\b0  \cf2 -- If the date is 1-10 this adds an initial zero to use in the file name\cf3 \
+		
+\b set
+\b0  \cf4 numDate\cf3  
+\b to
+\b0  ("0" & \cf4 theDate\cf3 )\
+	
+\b else
+\b0 \
+		
+\b set
+\b0  \cf4 numDate\cf3  
+\b to
+\b0  \cf4 theDate\cf3 \
+	
+\b end
+\b0  
+\b if
+\b0 \
+	\
+	
+\b repeat
+\b0  
+\b with
+\b0  \cf4 i\cf3  
+\b from
+\b0  1 
+\b to
+\b0  
+\b \cf6 count
+\b0 \cf3  
+\b of
+\b0  \cf4 months_list\cf3  \cf2 -- This gets the month number and, if less than 10, adds an initial zero to use in the file name\cf3 \
+		
+\b if
+\b0  
+\i \cf6 item
+\i0 \cf3  \cf4 i\cf3  
+\b of
+\b0  \cf4 months_list\cf3  
+\b is
+\b0  \cf4 theMonth\cf3  
+\b then
+\b0  
+\b set
+\b0  \cf4 raw_numMonth\cf3  
+\b to
+\b0  \cf4 i\cf3 \
+	
+\b end
+\b0  
+\b repeat
+\b0 \
+	
+\b if
+\b0  \cf4 raw_numMonth\cf3  
+\b is
+\b0  
+\b less than
+\b0  10 
+\b then
+\b0 \
+		
+\b set
+\b0  \cf4 numMonth\cf3  
+\b to
+\b0  ("0" & \cf4 raw_numMonth\cf3 )\
+	
+\b else
+\b0 \
+		
+\b set
+\b0  \cf4 numMonth\cf3  
+\b to
+\b0  \cf4 raw_numMonth\cf3 \
+	
+\b end
+\b0  
+\b if
+\b0 \
+	\
+	
+\b set
+\b0  \cf4 fileDate\cf3  
+\b to
+\b0  (\cf4 numDate\cf3  & \cf4 numMonth\cf3  & (
+\i \cf6 text
+\i0 \cf3  3 
+\b through
+\b0  4 
+\b of
+\b0  \cf4 theYear\cf3 )) \cf2 -- This combines the date, month and last two digits of the year to create a file name\cf3 \
+
+\b end
+\b0  \cf4 create_fileDate\cf3 \
+\
+\
+\cf2 (*	Single page: Apply a master, change the date and override everything on the "Work" layer	*)\cf3 \
+
+\b on
+\b0  \cf4 applyMaster_changeDate_single\cf3 ()\
+	
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+		
+\b tell
+\b0  
+\b the
+\b0  \cf7 active document\cf3 \
+			
+\b set
+\b0  \cf7 applied master\cf3  
+\b of
+\b0  
+\i \cf6 page
+\i0 \cf3  1 
+\b to
+\b0  
+\i \cf6 master spread
+\i0 \cf3  \cf4 masterName\cf3 \
+			
+\b \cf6 override
+\b0 \cf3  
+\i \cf6 text frame
+\i0 \cf3  "Edition date" 
+\b of
+\b0  
+\i \cf6 master spread
+\i0 \cf3  \cf4 masterName\cf3  \cf6 destination page\cf3  
+\i \cf6 page
+\i0 \cf3  1\
+			
+\b set
+\b0  
+\b the
+\b0  \cf7 contents\cf3  
+\b of
+\b0  
+\i \cf6 text frame
+\i0 \cf3  "Edition date" 
+\b of
+\b0  
+\i \cf6 page
+\i0 \cf3  1 
+\b to
+\b0  \cf4 pageDate\cf3 \
+			
+\b try
+\b0 \
+				
+\b \cf6 override
+\b0 \cf3  (
+\b every
+\b0  
+\i \cf6 item
+\i0 \cf3  
+\b of
+\b0  \cf7 master page items\cf3  
+\b of
+\b0  
+\i \cf6 page
+\i0 \cf3  1 
+\b whose
+\b0  \cf7 item layer\cf3 's \cf7 name\cf3  
+\b is
+\b0  "Work") \cf6 destination page\cf3  
+\i \cf6 page
+\i0 \cf3  1\
+			
+\b end
+\b0  
+\b try
+\b0 \
+		
+\b end
+\b0  
+\b tell
+\b0 \
+	
+\b end
+\b0  
+\b tell
+\b0 \
+
+\b end
+\b0  \cf4 applyMaster_changeDate_single\cf3 \
+\
+\
+\cf2 (*	Spreads: Create a new spread from a master, change the date on both pages and override everything on the "Work" layer	*)\cf3 \
+
+\b on
+\b0  \cf4 applyMaster_changeDate_spread\cf3 ()\
+	
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+		
+\b tell
+\b0  
+\b the
+\b0  \cf7 active document\cf3 \
+			
+\b \cf6 make
+\b0 \cf3  \cf6 new\cf3  
+\i \cf6 spread
+\i0 \cf3  \cf6 with properties\cf3  \{\cf7 applied master\cf3 :
+\i \cf6 master spread
+\i0 \cf3  \cf4 masterName\cf3 \}\
+			
+\b \cf6 override
+\b0 \cf3  
+\i \cf6 text frame
+\i0 \cf3  "L-Edition date" 
+\b of
+\b0  
+\i \cf6 master spread
+\i0 \cf3  \cf4 masterName\cf3  \cf6 destination page\cf3  
+\i \cf6 page
+\i0 \cf3  2\
+			
+\b \cf6 override
+\b0 \cf3  
+\i \cf6 text frame
+\i0 \cf3  "R-Edition date" 
+\b of
+\b0  
+\i \cf6 master spread
+\i0 \cf3  \cf4 masterName\cf3  \cf6 destination page\cf3  
+\i \cf6 page
+\i0 \cf3  3\
+			
+\b set
+\b0  
+\b the
+\b0  \cf7 contents\cf3  
+\b of
+\b0  
+\i \cf6 text frame
+\i0 \cf3  "L-Edition date" 
+\b of
+\b0  
+\i \cf6 page
+\i0 \cf3  2 
+\b to
+\b0  \cf4 pageDate\cf3 \
+			
+\b set
+\b0  
+\b the
+\b0  \cf7 contents\cf3  
+\b of
+\b0  
+\i \cf6 text frame
+\i0 \cf3  "R-Edition date" 
+\b of
+\b0  
+\i \cf6 page
+\i0 \cf3  3 
+\b to
+\b0  \cf4 pageDate\cf3 \
+			
+\b try
+\b0 \
+				
+\b \cf6 override
+\b0 \cf3  (
+\b every
+\b0  
+\i \cf6 item
+\i0 \cf3  
+\b of
+\b0  \cf7 master page items\cf3  
+\b of
+\b0  
+\i \cf6 page
+\i0 \cf3  2 
+\b whose
+\b0  \cf7 item layer\cf3 's \cf7 name\cf3  
+\b is
+\b0  "Work") \cf6 destination page\cf3  
+\i \cf6 page
+\i0 \cf3  2\
+				
+\b \cf6 override
+\b0 \cf3  (
+\b every
+\b0  
+\i \cf6 item
+\i0 \cf3  
+\b of
+\b0  \cf7 master page items\cf3  
+\b of
+\b0  
+\i \cf6 page
+\i0 \cf3  3 
+\b whose
+\b0  \cf7 item layer\cf3 's \cf7 name\cf3  
+\b is
+\b0  "Work") \cf6 destination page\cf3  
+\i \cf6 page
+\i0 \cf3  3\
+			
+\b end
+\b0  
+\b try
+\b0 \
+		
+\b end
+\b0  
+\b tell
+\b0 \
+	
+\b end
+\b0  
+\b tell
+\b0 \
+
+\b end
+\b0  \cf4 applyMaster_changeDate_spread\cf3 \
+\
+\
+\cf2 (*	Single page: Change the page number to the one specified in the handler call - e.g. changePageNumber_single("3") for page 3	*)\cf3 \
+
+\b on
+\b0  \cf4 changePageNumber_single\cf3 (\cf4 pageNumber\cf3 )\
+	
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+		
+\b tell
+\b0  
+\b the
+\b0  \cf7 active document\cf3 \
+			
+\b \cf6 override
+\b0 \cf3  
+\i \cf6 text frame
+\i0 \cf3  "Page number" 
+\b of
+\b0  
+\i \cf6 master spread
+\i0 \cf3  \cf4 masterName\cf3  \cf6 destination page\cf3  
+\i \cf6 page
+\i0 \cf3  1\
+			
+\b set
+\b0  
+\b the
+\b0  \cf7 contents\cf3  
+\b of
+\b0  
+\i \cf6 text frame
+\i0 \cf3  "Page number" 
+\b of
+\b0  
+\i \cf6 page
+\i0 \cf3  1 
+\b to
+\b0  \cf4 pageNumber\cf3 \
+		
+\b end
+\b0  
+\b tell
+\b0 \
+	
+\b end
+\b0  
+\b tell
+\b0 \
+
+\b end
+\b0  \cf4 changePageNumber_single\cf3 \
+\
+\
+\cf2 (*	Spreads: Change the page number on both pages. The handler call asks for the left-hand page\'92s number - e.g. changePageNumber_spread("8") for pages 8 and 9	*)\cf3 \
+
+\b on
+\b0  \cf4 changePageNumber_spread\cf3 (\cf4 leftPageNumber\cf3 )\
+	
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+		
+\b tell
+\b0  
+\b the
+\b0  \cf7 active document\cf3 \
+			
+\b \cf6 override
+\b0 \cf3  
+\i \cf6 text frame
+\i0 \cf3  "L-Page number" 
+\b of
+\b0  
+\i \cf6 master spread
+\i0 \cf3  \cf4 masterName\cf3  \cf6 destination page\cf3  
+\i \cf6 page
+\i0 \cf3  2\
+			
+\b \cf6 override
+\b0 \cf3  
+\i \cf6 text frame
+\i0 \cf3  "R-Page number" 
+\b of
+\b0  
+\i \cf6 master spread
+\i0 \cf3  \cf4 masterName\cf3  \cf6 destination page\cf3  
+\i \cf6 page
+\i0 \cf3  3\
+			
+\b set
+\b0  
+\b the
+\b0  \cf7 contents\cf3  
+\b of
+\b0  
+\i \cf6 text frame
+\i0 \cf3  "L-Page number" 
+\b of
+\b0  
+\i \cf6 page
+\i0 \cf3  2 
+\b to
+\b0  \cf4 leftPageNumber\cf3 \
+			
+\b set
+\b0  
+\b the
+\b0  \cf7 contents\cf3  
+\b of
+\b0  
+\i \cf6 text frame
+\i0 \cf3  "R-Page number" 
+\b of
+\b0  
+\i \cf6 page
+\i0 \cf3  3 
+\b to
+\b0  ((\cf4 leftPageNumber\cf3  + 1) 
+\b as
+\b0  
+\i \cf6 string
+\i0 \cf3 )\
+		
+\b end
+\b0  
+\b tell
+\b0 \
+	
+\b end
+\b0  
+\b tell
+\b0 \
+
+\b end
+\b0  \cf4 changePageNumber_spread\cf3 \
+\
+\cf2 (*	Spreads and left-hand single pages: Locks the "Date and page number" layer, selects the "Work" layer, sets the correct ruler zero point and saves with the previously created fileDate and specified fileSlug	*)\cf3 \
+
+\b on
+\b0  \cf4 clean_save_L\cf3 ()\
+	
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+		
+\b tell
+\b0  
+\b the
+\b0  \cf7 active document\cf3 \
+			
+\b set
+\b0  \cf7 locked\cf3  
+\b of
+\b0  
+\i \cf6 layer
+\i0 \cf3  "Date and page number" 
+\b to
+\b0  \cf9 true\cf3 \
+			
+\b set
+\b0  \cf7 locked\cf3  
+\b of
+\b0  
+\i \cf6 layer
+\i0 \cf3  "Furniture" 
+\b to
+\b0  \cf9 true\cf3 \
+			
+\b set
+\b0  \cf7 active layer\cf3  
+\b to
+\b0  "Work"\
+			
+\b set
+\b0  
+\b the
+\b0  \cf7 zero point\cf3  
+\b to
+\b0  \{15.0, 11.0\}\
+			
+\b \cf6 save
+\b0 \cf3  \cf6 to\cf3  \cf4 freshPagesFolder\cf3  & \cf4 fileSlug\cf3  & "_" & \cf4 fileDate\cf3  & ".indd"\
+		
+\b end
+\b0  
+\b tell
+\b0 \
+	
+\b end
+\b0  
+\b tell
+\b0 \
+
+\b end
+\b0  \cf4 clean_save_L\cf3 \
+\
+\
+\cf2 (*	Right-hand pages: Locks the "Date and page number" layer, selects the "Work" layer, sets the correct ruler zero point and saves with the previously created fileDate and specified fileSlug	*)\cf3 \
+
+\b on
+\b0  \cf4 clean_save_R\cf3 ()\
+	
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+		
+\b tell
+\b0  
+\b the
+\b0  \cf7 active document\cf3 \
+			
+\b set
+\b0  \cf7 locked\cf3  
+\b of
+\b0  
+\i \cf6 layer
+\i0 \cf3  "Date and page number" 
+\b to
+\b0  \cf9 true\cf3 \
+			
+\b set
+\b0  \cf7 locked\cf3  
+\b of
+\b0  
+\i \cf6 layer
+\i0 \cf3  "Furniture" 
+\b to
+\b0  \cf9 true\cf3 \
+			
+\b set
+\b0  \cf7 active layer\cf3  
+\b to
+\b0  "Work"\
+			
+\b set
+\b0  
+\b the
+\b0  \cf7 zero point\cf3  
+\b to
+\b0  \{9.0, 11.0\}\
+			
+\b \cf6 save
+\b0 \cf3  \cf6 to\cf3  \cf4 freshPagesFolder\cf3  & \cf4 fileSlug\cf3  & "_" & \cf4 fileDate\cf3  & ".indd"\
+		
+\b end
+\b0  
+\b tell
+\b0 \
+	
+\b end
+\b0  
+\b tell
+\b0 \
+
+\b end
+\b0  \cf4 clean_save_R\cf3 \
+\
+\
+\cf2 (*	Changes the legal date on the left-hand page of a spread - it\'92s designed for pages 12-13 (TV), which have the legal date on weekdays.	*)\cf3 \
+
+\b on
+\b0  \cf4 changeLegalDate_12\cf3 ()\
+	
+\b tell
+\b0  
+\i \cf6 application
+\i0 \cf3  "Adobe InDesign CS5.5"\
+		
+\b tell
+\b0  
+\b the
+\b0  \cf7 active document\cf3 \
+			
+\b \cf6 override
+\b0 \cf3  
+\i \cf6 text frame
+\i0 \cf3  "Legal date" 
+\b of
+\b0  
+\i \cf6 master spread
+\i0 \cf3  \cf4 masterName\cf3  \cf6 destination page\cf3  
+\i \cf6 page
+\i0 \cf3  2\
+			
+\b set
+\b0  
+\b the
+\b0  \cf7 contents\cf3  
+\b of
+\b0  
+\i \cf6 text frame
+\i0 \cf3  "Legal date" 
+\b of
+\b0  
+\i \cf6 page
+\i0 \cf3  2 
+\b to
+\b0  \cf4 pageDate\cf3 \
+		
+\b end
+\b0  
+\b tell
+\b0 \
+	
+\b end
+\b0  
+\b tell
+\b0 \
+
+\b end
+\b0  \cf4 changeLegalDate_12}
