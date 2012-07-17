@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>SD4Version</key>
-	<string>5.0.2b3</string>
+	<string>5.0.2</string>
 	<key>SDBreakOnExceptions</key>
 	<false/>
 	<key>SDBreakpointsEnabled</key>
@@ -20,7 +20,7 @@
 		<real>0.80000001192092896</real>
 		<key>viewControllers</key>
 		<dict>
-			<key>5DB7CD6C-CD11-4329-8D0D-D5712E631F2A-1068-00002CC2EF4B695B</key>
+			<key>0A620B9F-AFB5-425B-96EA-1AD5C55BE19F-1942-00001A2149E89640</key>
 			<dict>
 				<key>debuggerViewState</key>
 				<dict>
@@ -47,8 +47,8 @@
 						<dict>
 							<key>3</key>
 							<array>
-								<integer>559</integer>
-								<integer>468</integer>
+								<integer>557</integer>
+								<integer>470</integer>
 								<integer>230</integer>
 							</array>
 							<key>5</key>
@@ -184,9 +184,9 @@
 					</dict>
 				</dict>
 				<key>mainSplitPosition</key>
-				<real>434</real>
+				<real>818</real>
 				<key>modeIdentifier</key>
-				<string>tab.rsrcs</string>
+				<string>tab.debug</string>
 				<key>resourcesViewState</key>
 				<dict>
 					<key>heights2</key>
@@ -200,9 +200,9 @@
 							</array>
 							<key>3</key>
 							<array>
-								<integer>446</integer>
-								<integer>464</integer>
-								<integer>370</integer>
+								<integer>299</integer>
+								<integer>311</integer>
+								<integer>248</integer>
 							</array>
 						</dict>
 					</dict>
@@ -211,9 +211,7 @@
 						<key>expanded</key>
 						<array/>
 						<key>selection</key>
-						<array>
-							<string>/Users/robjwells/Documents/Scripting/Morning Star/Generators/Big Spike.app/Contents/Resources/applet.rsrc</string>
-						</array>
+						<array/>
 					</dict>
 				</dict>
 				<key>scriptViewState</key>
@@ -226,7 +224,7 @@
 								<key>length</key>
 								<integer>0</integer>
 								<key>location</key>
-								<integer>15588</integer>
+								<integer>12907</integer>
 							</dict>
 						</array>
 						<key>LNSTextViewShowInvisibles</key>
@@ -238,7 +236,7 @@
 						<key>LNSTextViewWrapLines</key>
 						<true/>
 						<key>LNSVisibleRect</key>
-						<string>{{0, 2}, {2084, 1280}}</string>
+						<string>{{0, 0}, {1700, 1280}}</string>
 						<key>ShowLineNumbers</key>
 						<false/>
 						<key>showCodeCoverage</key>
@@ -256,14 +254,14 @@
 					<key>tab.bps</key>
 					<real>433</real>
 					<key>tab.debug</key>
-					<real>817</real>
+					<real>433</real>
 					<key>tab.rsrcs</key>
 					<real>433</real>
 				</dict>
 				<key>tabsHidden</key>
 				<false/>
 				<key>windowControllerID</key>
-				<string>5DB7CD6C-CD11-4329-8D0D-D5712E631F2A-1068-00002CC2EF4B695B</string>
+				<string>0A620B9F-AFB5-425B-96EA-1AD5C55BE19F-1942-00001A2149E89640</string>
 				<key>windowFrame</key>
 				<string>14 55 2546 1358 0 0 2560 1418 </string>
 			</dict>
@@ -274,7 +272,7 @@
 				<key>controllerClass</key>
 				<string>ScriptWindowController</string>
 				<key>controllerID</key>
-				<string>5DB7CD6C-CD11-4329-8D0D-D5712E631F2A-1068-00002CC2EF4B695B</string>
+				<string>0A620B9F-AFB5-425B-96EA-1AD5C55BE19F-1942-00001A2149E89640</string>
 				<key>controllerState</key>
 				<dict>
 					<key>miniaturized</key>

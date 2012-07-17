@@ -18,8 +18,9 @@
 \
 \
 \cf2 -- Global variables that are needed in handlers at some point --\cf3 \
+\pard\pardeftab480\slleading20\pardirnatural
 
-\b global
+\b \cf3 global
 \b0  \cf4 theDay\cf3 \
 
 \b global
@@ -53,9 +54,11 @@
 \b0  \cf4 masterName\cf3  \cf2 -- The name of the master page/spread to be applied in InDesign\cf3 \
 \
 \
+\pard\pardeftab480\slleading20\pardirnatural
 \cf2 -- Unchanging variables --\cf3 \
+\pard\pardeftab480\slleading20\pardirnatural
 
-\b set
+\b \cf3 set
 \b0  \cf4 freshPagesFolder\cf3  
 \b to
 \b0  "Server:Production resources:Master pages:Fresh pages:"\
@@ -88,11 +91,13 @@
 \b0  \{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"\}\
 \
 \
+\pard\pardeftab480\slleading20\pardirnatural
 \cf2 -- User prompts --\cf3 \
 \
 \cf2 (*Get the date *)\cf3 \
+\pard\pardeftab480\slleading20\pardirnatural
 
-\b set
+\b \cf3 set
 \b0  \cf4 theDay\cf3  
 \b to
 \b0  (
@@ -180,9 +185,11 @@
 \b error
 \b0  \cf6 number\cf3  -128\
 \
+\pard\pardeftab480\slleading20\pardirnatural
 \cf2 (*Get the pages to create*)\cf3 \
+\pard\pardeftab480\slleading20\pardirnatural
 
-\b if
+\b \cf3 if
 \b0  \cf4 theDay\cf3  
 \b is
 \b0  
@@ -246,17 +253,23 @@
 \b0 \
 \
 \
+\pard\pardeftab480\slleading20\pardirnatural
 \cf2 -- Create the date --\cf3 \
 \
 \cf4 create_pageDate\cf3 ()\
-\
+\pard\pardeftab480\slleading20\pardirnatural
+\cf3 \
+\pard\pardeftab480\slleading20\pardirnatural
 \cf4 create_fileDate\cf3 ()\
+\pard\pardeftab480\slleading20\pardirnatural
+\cf3 \
 \
-\
+\pard\pardeftab480\slleading20\pardirnatural
 \cf2 -- Generate the pages --\cf3 \
 \
+\pard\pardeftab480\slleading20\pardirnatural
 
-\b tell
+\b \cf3 tell
 \b0  
 \i \cf6 application
 \i0 \cf3  "Adobe InDesign CS5.5" 
@@ -311,7 +324,7 @@
 \b0  \cf4 applyMaster_changeDate_single\cf3 ()\
 			
 \b my
-\b0  \cf4 drawEmbargoBox\cf3 \
+\b0  \cf4 drawEmbargoBox\cf3 ()\
 			
 \b my
 \b0  \cf4 clean_save_R\cf3 ()\
@@ -361,7 +374,7 @@
 \b0  \cf4 applyMaster_changeDate_single\cf3 ()\
 			
 \b my
-\b0  \cf4 drawEmbargoBox\cf3 \
+\b0  \cf4 drawEmbargoBox\cf3 ()\
 			
 \b my
 \b0  \cf4 clean_save_R\cf3 ()\
@@ -420,7 +433,7 @@
 \b0  \cf4 changePageNumber_single\cf3 ("2")\
 			
 \b my
-\b0  \cf4 drawEmbargoBox\cf3 \
+\b0  \cf4 drawEmbargoBox\cf3 ()\
 			
 \b my
 \b0  \cf4 clean_save_L\cf3 ()\
@@ -465,7 +478,7 @@
 \b0  \cf4 changePageNumber_single\cf3 ("3")\
 			
 \b my
-\b0  \cf4 drawEmbargoBox\cf3 \
+\b0  \cf4 drawEmbargoBox\cf3 ()\
 			
 \b my
 \b0  \cf4 clean_save_R\cf3 ()\
@@ -512,7 +525,7 @@
 \b0  \cf4 changePageNumber_spread\cf3 ("2")\
 			
 \b my
-\b0  \cf4 drawEmbargoBox\cf3 \
+\b0  \cf4 drawEmbargoBox\cf3 ()\
 			
 \b my
 \b0  \cf4 clean_save_L\cf3 ()\
@@ -571,7 +584,7 @@
 \b0  \cf4 changePageNumber_single\cf3 ("4")\
 			
 \b my
-\b0  \cf4 drawEmbargoBox\cf3 \
+\b0  \cf4 drawEmbargoBox\cf3 ()\
 			
 \b my
 \b0  \cf4 clean_save_L\cf3 ()\
@@ -616,7 +629,7 @@
 \b0  \cf4 changePageNumber_single\cf3 ("5")\
 			
 \b my
-\b0  \cf4 drawEmbargoBox\cf3 \
+\b0  \cf4 drawEmbargoBox\cf3 ()\
 			
 \b my
 \b0  \cf4 clean_save_R\cf3 ()\
@@ -663,7 +676,7 @@
 \b0  \cf4 changePageNumber_spread\cf3 ("4")\
 			
 \b my
-\b0  \cf4 drawEmbargoBox\cf3 \
+\b0  \cf4 drawEmbargoBox\cf3 ()\
 			
 \b my
 \b0  \cf4 clean_save_L\cf3 ()\
@@ -722,7 +735,7 @@
 \b0  \cf4 changePageNumber_single\cf3 ("6")\
 			
 \b my
-\b0  \cf4 drawEmbargoBox\cf3 \
+\b0  \cf4 drawEmbargoBox\cf3 ()\
 			
 \b my
 \b0  \cf4 clean_save_L\cf3 ()\
@@ -767,7 +780,7 @@
 \b0  \cf4 changePageNumber_single\cf3 ("7")\
 			
 \b my
-\b0  \cf4 drawEmbargoBox\cf3 \
+\b0  \cf4 drawEmbargoBox\cf3 ()\
 			
 \b my
 \b0  \cf4 clean_save_R\cf3 ()\
@@ -814,7 +827,7 @@
 \b0  \cf4 changePageNumber_spread\cf3 ("6")\
 			
 \b my
-\b0  \cf4 drawEmbargoBox\cf3 \
+\b0  \cf4 drawEmbargoBox\cf3 ()\
 			
 \b my
 \b0  \cf4 clean_save_L\cf3 ()\
@@ -1289,12 +1302,14 @@
 \b0 \
 \
 \
+\pard\pardeftab480\slleading20\pardirnatural
 \cf2 -- Handler definitions --\cf3 \
 \
 \
 \cf2 (*	Create the date used on the InDesign pages, and deal with some Saturday oddities	*)\cf3 \
+\pard\pardeftab480\slleading20\pardirnatural
 
-\b on
+\b \cf3 on
 \b0  \cf4 create_pageDate\cf3 ()\
 	
 \b set
@@ -1519,9 +1534,11 @@
 \b0  \cf4 create_pageDate\cf3 \
 \
 \
+\pard\pardeftab480\slleading20\pardirnatural
 \cf2 (*	Create the short date to name the created InDesign files	*)\cf3 \
+\pard\pardeftab480\slleading20\pardirnatural
 
-\b on
+\b \cf3 on
 \b0  \cf4 create_fileDate\cf3 ()\
 	
 \b if
@@ -1632,9 +1649,11 @@
 \b0  \cf4 create_fileDate\cf3 \
 \
 \
+\pard\pardeftab480\slleading20\pardirnatural
 \cf2 (*	Single page: Apply a master, change the date and override everything on the "Work" layer	*)\cf3 \
+\pard\pardeftab480\slleading20\pardirnatural
 
-\b on
+\b \cf3 on
 \b0  \cf4 applyMaster_changeDate_single\cf3 ()\
 	
 \b tell
@@ -1725,9 +1744,11 @@
 \b0  \cf4 applyMaster_changeDate_single\cf3 \
 \
 \
+\pard\pardeftab480\slleading20\pardirnatural
 \cf2 (*	Spreads: Create a new spread from a master, change the date on both pages and override everything on the "Work" layer	*)\cf3 \
+\pard\pardeftab480\slleading20\pardirnatural
 
-\b on
+\b \cf3 on
 \b0  \cf4 applyMaster_changeDate_spread\cf3 ()\
 	
 \b tell
@@ -1859,9 +1880,11 @@
 \b0  \cf4 applyMaster_changeDate_spread\cf3 \
 \
 \
+\pard\pardeftab480\slleading20\pardirnatural
 \cf2 (*	Single page: Change the page number to the one specified in the handler call - e.g. changePageNumber_single("3") for page 3	*)\cf3 \
+\pard\pardeftab480\slleading20\pardirnatural
 
-\b on
+\b \cf3 on
 \b0  \cf4 changePageNumber_single\cf3 (\cf4 pageNumber\cf3 )\
 	
 \b tell
@@ -1914,9 +1937,11 @@
 \b0  \cf4 changePageNumber_single\cf3 \
 \
 \
+\pard\pardeftab480\slleading20\pardirnatural
 \cf2 (*	Spreads: Change the page number on both pages. The handler call asks for the left-hand page\'92s number - e.g. changePageNumber_spread("8") for pages 8 and 9	*)\cf3 \
+\pard\pardeftab480\slleading20\pardirnatural
 
-\b on
+\b \cf3 on
 \b0  \cf4 changePageNumber_spread\cf3 (\cf4 leftPageNumber\cf3 )\
 	
 \b tell
@@ -1998,9 +2023,11 @@
 \b end
 \b0  \cf4 changePageNumber_spread\cf3 \
 \
+\pard\pardeftab480\slleading20\pardirnatural
 \cf2 (*	Spreads and left-hand single pages: Locks the "Date and page number" layer, selects the "Work" layer, sets the correct ruler zero point and saves with the previously created fileDate and specified fileSlug	*)\cf3 \
+\pard\pardeftab480\slleading20\pardirnatural
 
-\b on
+\b \cf3 on
 \b0  \cf4 clean_save_L\cf3 ()\
 	
 \b tell
@@ -2060,9 +2087,11 @@
 \b0  \cf4 clean_save_L\cf3 \
 \
 \
+\pard\pardeftab480\slleading20\pardirnatural
 \cf2 (*	Right-hand pages: Locks the "Date and page number" layer, selects the "Work" layer, sets the correct ruler zero point and saves with the previously created fileDate and specified fileSlug	*)\cf3 \
+\pard\pardeftab480\slleading20\pardirnatural
 
-\b on
+\b \cf3 on
 \b0  \cf4 clean_save_R\cf3 ()\
 	
 \b tell
@@ -2122,9 +2151,11 @@
 \b0  \cf4 clean_save_R\cf3 \
 \
 \
+\pard\pardeftab480\slleading20\pardirnatural
 \cf2 (*	Changes the legal date on the left-hand page of a spread - it\'92s designed for pages 12-13 (TV), which have the legal date on weekdays.	*)\cf3 \
+\pard\pardeftab480\slleading20\pardirnatural
 
-\b on
+\b \cf3 on
 \b0  \cf4 changeLegalDate_12\cf3 ()\
 	
 \b tell
@@ -2176,9 +2207,11 @@
 \b end
 \b0  \cf4 changeLegalDate_12\cf3 \
 \
+\pard\pardeftab480\slleading20\pardirnatural
 \cf2 (*	Changes the legal date on a left-hand single page - it\'92s designed for the Red List page (20), which has the legal date at weekends.	*)\cf3 \
+\pard\pardeftab480\slleading20\pardirnatural
 
-\b on
+\b \cf3 on
 \b0  \cf4 changeLegalDate_20\cf3 ()\
 	
 \b tell
@@ -2231,9 +2264,11 @@
 \b0  \cf4 changeLegalDate_20\cf3 \
 \
 \
+\pard\pardeftab480\slleading20\pardirnatural
 \cf2 (*	Creates an embargoed stories text frame to the left-hand side of the working page (1 if single, 2 if spread)	*)\cf3 \
+\pard\pardeftab480\slleading20\pardirnatural
 
-\b on
+\b \cf3 on
 \b0  \cf4 drawEmbargoBox\cf3 ()\
 	
 \b tell
