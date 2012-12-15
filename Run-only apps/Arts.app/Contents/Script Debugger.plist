@@ -224,7 +224,7 @@
 								<key>length</key>
 								<integer>0</integer>
 								<key>location</key>
-								<integer>1540</integer>
+								<integer>0</integer>
 							</dict>
 						</array>
 						<key>LNSTextViewShowInvisibles</key>
@@ -236,7 +236,7 @@
 						<key>LNSTextViewWrapLines</key>
 						<true/>
 						<key>LNSVisibleRect</key>
-						<string>{{0, 678}, {1801, 1285}}</string>
+						<string>{{0, 0}, {1801, 1285}}</string>
 						<key>ShowLineNumbers</key>
 						<true/>
 						<key>showCodeCoverage</key>
@@ -254,7 +254,7 @@
 					<key>tab.bps</key>
 					<real>433</real>
 					<key>tab.debug</key>
-					<real>433</real>
+					<real>439</real>
 					<key>tab.rsrcs</key>
 					<real>433</real>
 				</dict>
