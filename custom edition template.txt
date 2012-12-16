@@ -6,7 +6,8 @@ Start on the line immediately after "#Starts here#".
 
 Follow spreads with hyphen, tab, hyphen, tab, hyphen.
 
-Do not leave any blank lines between files or at the end of the list. The last line of the document should be the back page (eg "16	Back	single").
+Do not leave any blank lines between files or at the end of the list.
+The last line of the document should be the back page (eg "16	Back	single").
 
 Page types
 ==========

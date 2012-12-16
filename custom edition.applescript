@@ -3,7 +3,7 @@
 --	Written by			Rob Wells
 --	Created on			16/12/2012
 --	Last updated		16/12/2012
---	Version:			1.0
+--	Version:			1.6
 
 -- Global variables that are needed in handlers at some point --
 global theDay
