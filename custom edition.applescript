@@ -71,14 +71,14 @@ tell application "TextWrangler"
 				end if
 				set theMaster to (item listPos of masters_list)
 				
-				if p2 contains "front" then
-					set p1 to ""
-				end if
-				
 				if (p1 mod 2 is 0) then
 					set theSide to "L"
 				else if (p1 mod 2 is 1) then
 					set theSide to "R"
+				end if
+				
+				if p2 contains "front" then
+					set p1 to ""
 				end if
 				
 				my pageGen(p3, theMaster, theSlug, p1, theSide)
