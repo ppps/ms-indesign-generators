@@ -20,7 +20,7 @@
 		<real>0.80000001192092896</real>
 		<key>viewControllers</key>
 		<dict>
-			<key>D5757862-E560-4EBB-A8F0-D22ECB9D17A0-4327-00001B9F4394E47E</key>
+			<key>773E21AF-E169-4DE7-84EA-9595BFE754A6-3426-00002557192103DD</key>
 			<dict>
 				<key>debuggerViewState</key>
 				<dict>
@@ -48,16 +48,16 @@
 							<key>3</key>
 							<array>
 								<integer>559</integer>
-								<integer>473</integer>
-								<integer>230</integer>
+								<integer>472</integer>
+								<integer>231</integer>
 							</array>
 							<key>5</key>
 							<array>
-								<integer>250</integer>
-								<integer>104</integer>
-								<integer>318</integer>
-								<integer>83</integer>
-								<integer>127</integer>
+								<integer>353</integer>
+								<integer>147</integer>
+								<integer>449</integer>
+								<integer>118</integer>
+								<integer>179</integer>
 							</array>
 						</dict>
 					</dict>
@@ -66,7 +66,7 @@
 						<key>explorerState</key>
 						<dict>
 							<key>dividerPos</key>
-							<real>333.33334350585938</real>
+							<real>305.33334350585938</real>
 							<key>scope2.changedItems</key>
 							<integer>1</integer>
 							<key>scope2.emptyElements</key>
@@ -101,7 +101,7 @@
 										<key>length</key>
 										<integer>0</integer>
 										<key>location</key>
-										<integer>85</integer>
+										<integer>2</integer>
 									</dict>
 								</array>
 								<key>LNSTextViewShowInvisibles</key>
@@ -113,7 +113,32 @@
 								<key>LNSTextViewWrapLines</key>
 								<integer>1</integer>
 								<key>LNSVisibleRect</key>
-								<string>{{0, 0}, {424, 280}}</string>
+								<string>{{0, 0}, {396, 322}}</string>
+							</dict>
+						</dict>
+						<key>textState</key>
+						<dict>
+							<key>text</key>
+							<dict>
+								<key>LNSSelection</key>
+								<array>
+									<dict>
+										<key>length</key>
+										<integer>0</integer>
+										<key>location</key>
+										<integer>7</integer>
+									</dict>
+								</array>
+								<key>LNSTextViewShowInvisibles</key>
+								<integer>0</integer>
+								<key>LNSTextViewShowSpaces</key>
+								<integer>0</integer>
+								<key>LNSTextViewShowTabStops</key>
+								<integer>0</integer>
+								<key>LNSTextViewWrapLines</key>
+								<integer>1</integer>
+								<key>LNSVisibleRect</key>
+								<string>{{0, 0}, {396, 322}}</string>
 							</dict>
 						</dict>
 					</dict>
@@ -184,9 +209,9 @@
 					</dict>
 				</dict>
 				<key>mainSplitPosition</key>
-				<real>707</real>
+				<real>440</real>
 				<key>modeIdentifier</key>
-				<string>tab.debug</string>
+				<string>tab.rsrcs</string>
 				<key>resourcesViewState</key>
 				<dict>
 					<key>heights2</key>
@@ -200,9 +225,9 @@
 							</array>
 							<key>3</key>
 							<array>
-								<integer>298</integer>
-								<integer>309</integer>
-								<integer>247</integer>
+								<integer>448</integer>
+								<integer>466</integer>
+								<integer>371</integer>
 							</array>
 						</dict>
 					</dict>
@@ -211,7 +236,9 @@
 						<key>expanded</key>
 						<array/>
 						<key>selection</key>
-						<array/>
+						<array>
+							<string>/Users/robjwells/Desktop/core.app/Contents/Resources/applet.rsrc</string>
+						</array>
 					</dict>
 				</dict>
 				<key>scriptViewState</key>
@@ -224,7 +251,7 @@
 								<key>length</key>
 								<integer>0</integer>
 								<key>location</key>
-								<integer>0</integer>
+								<integer>355</integer>
 							</dict>
 						</array>
 						<key>LNSTextViewShowInvisibles</key>
@@ -236,7 +263,7 @@
 						<key>LNSTextViewWrapLines</key>
 						<true/>
 						<key>LNSVisibleRect</key>
-						<string>{{0, 0}, {1801, 1285}}</string>
+						<string>{{0, 0}, {1046, 1285}}</string>
 						<key>ShowLineNumbers</key>
 						<true/>
 						<key>showCodeCoverage</key>
@@ -254,16 +281,16 @@
 					<key>tab.bps</key>
 					<real>433</real>
 					<key>tab.debug</key>
-					<real>439</real>
+					<real>411</real>
 					<key>tab.rsrcs</key>
 					<real>433</real>
 				</dict>
 				<key>tabsHidden</key>
 				<false/>
 				<key>windowControllerID</key>
-				<string>D5757862-E560-4EBB-A8F0-D22ECB9D17A0-4327-00001B9F4394E47E</string>
+				<string>773E21AF-E169-4DE7-84EA-9595BFE754A6-3426-00002557192103DD</string>
 				<key>windowFrame</key>
-				<string>4 55 2556 1363 0 0 2560 1418 </string>
+				<string>1026 55 1534 1363 0 0 2560 1418 </string>
 			</dict>
 		</dict>
 		<key>windowControllers</key>
@@ -272,13 +299,13 @@
 				<key>controllerClass</key>
 				<string>ScriptWindowController</string>
 				<key>controllerID</key>
-				<string>D5757862-E560-4EBB-A8F0-D22ECB9D17A0-4327-00001B9F4394E47E</string>
+				<string>773E21AF-E169-4DE7-84EA-9595BFE754A6-3426-00002557192103DD</string>
 				<key>controllerState</key>
 				<dict>
 					<key>miniaturized</key>
 					<false/>
 					<key>windowFrame</key>
-					<string>4 55 2556 1363 0 0 2560 1418 </string>
+					<string>1026 55 1534 1363 0 0 2560 1418 </string>
 				</dict>
 			</dict>
 		</array>

@@ -1,39 +1,41 @@
 Instructions
 ============
-Type out the edition plan, one file per line, with the page number, tab, page type, tab, single/spread.
+Type out the edition plan, one file per line, with:
+	Page number, tab, page type
 
 Start on the line immediately after "#Starts here#".
-
-Follow spreads with hyphen, tab, hyphen, tab, hyphen.
-
 Do not leave any blank lines between files or at the end of the list.
-The last line of the document should be the back page (eg "16	Back	single").
+
+For spreads, type the left-hand page number only ("8 Spread").
+Do not include a line for the right-hand page.
+You can optionally follow spreads with:
+	hyphen, tab, hyphen
 
 Page types
 ==========
-Front, Sat_Front
+Front, SatFront
 Home_S, Home_L, Home_R
 Foreign_S, Foreign_L, Foreign_R
-Struggle, Struggle_single
-NewsReview_S, NewsReview_L, NewsReview_R
-Spread, Feature_L, Feature_R
-TV, Sat_TV
-Letters
+Struggle_S, Struggle_L, Struggle_R
+NewsReviews_S, NewsReviews_L, NewsReviews_R
+Spread, Feat_S, Feat_L, Feat_R
+TV, SatTV
+Letters_S, Letters_L, Letters_R,
 RedList
-Arts, Sat_Arts
-Back, Sport_S, Sport_L, Sport_R, Racing
-Blank_L, Blank_R
-
+Arts_S, Arts_L, Arts_R, Arts_Ents
+Back, Sport_S, Sport_L, Sport_R
+Racing_L, Racing_R
+Blank_S, Blank_L, Blank_R
 
 Example
 =======
-#|TAB|PageType|TAB|spread/single
-1	Front	single
-2	Home_S	spread
--	-	-
-4	Home_L	single
-5	Home_R	single
-6	Foreign_S	spread
--	-	-
+#|TAB|PageType
+1	Front
+2	Home_S
+-	-
+4	Home_L
+5	Home_R
+6	Foreign_S
+-	-
 ==================================================
 #Starts here#
