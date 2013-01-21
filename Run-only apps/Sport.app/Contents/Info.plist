@@ -10,6 +10,8 @@
 	<string>applet</string>
 	<key>CFBundleIconFile</key>
 	<string>applet</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.apple.ScriptEditor.id.Sport</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -36,7 +38,7 @@
 		<key>positionOfDivider</key>
 		<real>333</real>
 		<key>savedFrame</key>
-		<string>7 428 602 597 0 0 1680 1028 </string>
+		<string>25 798 602 597 0 0 2560 1418 </string>
 		<key>selectedTabView</key>
 		<string>result</string>
 	</dict>
