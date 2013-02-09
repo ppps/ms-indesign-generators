@@ -3,7 +3,7 @@
 --	Written by			Rob Wells
 --	Created on			15/12/2012
 --	Last updated			09/02/2013
---	Version:			1.82
+--	Version:			1.821
 
 --	This is the core page generator. It contains all of the code needed by any of the four desks but this script should not be used by itself.
 --	Instead a desk name should be entered in the genPrompt() call on line 24, and then saved as desk-specific application with the proper icon.
@@ -34,6 +34,7 @@ end tell
 on genPrompt(desk)
 	if desk is "" then -- Allows core.scpt to be used as a generator (useful for testing)
 		set desk to (choose from list {"News", "Features", "Sport", "Arts", "Custom edition"} with prompt "Please pick a desk:" with title "Page generator") as string
+		if the result is "false" then error number -128
 	end if
 	
 	set days_list to {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}

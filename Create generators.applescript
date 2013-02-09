@@ -58,8 +58,3 @@ repeat with x from 1 to 4 -- Excludes "Custom edition", which is item 5
 	-- Rename custom icon to applet.icns
 	do shell script ("mv " & appletRoot & theDesk & ".icns " & appletIcon)
 end repeat
-
-tell application "Finder"
-	open appsFolder
-	activate
-end tell
