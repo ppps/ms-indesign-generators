@@ -4,14 +4,14 @@ tell application "Script Debugger"
 		if the name is "core.scpt" then
 			set sourceCode to the source text
 		else
-			set coreScript to open file "SSD:Users:robjwells:Documents:Programming:Morning Star:Generators:core.scpt"
+			set coreScript to open file "SSD:Users:robjwells:Programming:Morning Star:Generators:core.scpt"
 			set sourceCode to the source text of coreScript
 			close coreScript saving no
 		end if
 	end tell
 end tell
 
-set appsFolder to "SSD:Users:robjwells:Documents:Programming:Morning Star:Generators:Run-only apps:"
+set appsFolder to "SSD:Users:robjwells:Programming:Morning Star:Generators:Run-only apps:"
 set desk_list to {"News", "Features", "Sport", "Arts", "Custom edition"}
 
 repeat with x from 1 to (count of desk_list)
