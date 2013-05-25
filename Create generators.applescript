@@ -53,8 +53,6 @@ repeat with x from 1 to 4 -- Excludes "Custom edition", which is item 5
 	set appletRoot to (genRoot & "Run-only\\ apps/" & theDesk & ".app/Contents/Resources/")
 	set appletIcon to (appletRoot & "applet.icns")
 	
-	-- Copy custom icon into .app and delete default applet.icns
-	do shell script ("cp " & iconFile & " " & appletRoot & " | rm " & appletIcon)
-	-- Rename custom icon to applet.icns
-	do shell script ("mv " & appletRoot & theDesk & ".icns " & appletIcon)
+	-- Copy custom icon into .app, delete default applet.icns, rename custom icon
+	do shell script ("cp " & iconFile & " " & appletRoot & " ; rm " & appletIcon & " ; mv " & appletRoot & theDesk & ".icns " & appletIcon)
 end repeat
