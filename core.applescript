@@ -1,9 +1,9 @@
 --	Morning Star combo page generator
 
 --	Written by			Rob Wells
---	Created on			15/12/2012
---	Last updated			09/02/2013
---	Version:			1.821
+--	Created on			2012-12-15
+--	Last updated			2013-05-25
+--	Version:			1.83
 
 --	This is the core page generator. It contains all of the code needed by any of the four desks but this script should not be used by itself.
 --	Instead a desk name should be entered in the genPrompt() call on line 24, and then saved as desk-specific application with the proper icon.
@@ -362,26 +362,36 @@ on customEdition()
 				set hMaster to the grep substitution of "\\2" -- Human-friendly master name, as contained in human_list
 				
 				if (found text of searchResult) does not contain "-	-" then -- Lines consisting of "hyphen tab hyphen" are skipped
-					set listPos to (my list_position(hMaster, human_list)) -- Gets hMaster's list position, so it can fetch from masters_ and slugs_list
-					set theMaster to (item listPos of masters_list) -- Sets theMaster to the InDesign master name
 					
-					if theMaster is in singles_list then
-						set pageType to "single"
-					else if theMaster is in spreads_list then
-						set pageType to "spread"
-					end if
+					try
+						set listPos to (my list_position(hMaster, human_list)) -- Gets hMaster's list position, so it can fetch from masters_ and slugs_list
+						set theMaster to (item listPos of masters_list) -- Sets theMaster to the InDesign master name
+						
+						if theMaster is in singles_list then
+							set pageType to "single"
+						else if theMaster is in spreads_list then
+							set pageType to "spread"
+						end if
+						
+						if pageType is "single" then -- Block to set the slug used to name the file
+							set theSlug to (pageNumber & "_" & (item listPos of slugs_list))
+						else if pageType is "spread" then
+							set theSlug to (pageNumber & "-" & (pageNumber + 1) & "_" & (item listPos of slugs_list))
+						end if
+						
+						if theMaster is "News-Front" or theMaster is "News-SatFront" then
+							set pageNumber to "" -- So applyMaster doesn't try to set a page number, which would fail
+						end if
+						
+						my pageGen(pageType, theMaster, theSlug, pageNumber) -- Calls pageGen to create the page
+						
+					on error number -2753
+						-- Handles "variable not defined" - aimed at listPos - to catch bad input
+						set message2753 to "There is a problem with this instruction:" & return & return & (found text of searchResult) & return & return & "Please double-check that the page type is spelled exactly as listed." & return & return & "Do you wish to generate the rest of the pages or stop the script?"
+						display dialog message2753 buttons {"Continue", "Stop"} default button "Stop"
+						if the button returned of the result is "Stop" then error number -128
+					end try
 					
-					if pageType is "single" then -- Block to set the slug used to name the file
-						set theSlug to (pageNumber & "_" & (item listPos of slugs_list))
-					else if pageType is "spread" then
-						set theSlug to (pageNumber & "-" & (pageNumber + 1) & "_" & (item listPos of slugs_list))
-					end if
-					
-					if theMaster is "News-Front" or theMaster is "News-SatFront" then
-						set pageNumber to "" -- So applyMaster doesn't try to set a page number, which would fail
-					end if
-					
-					my pageGen(pageType, theMaster, theSlug, pageNumber) -- Calls pageGen to create the page
 					
 				end if
 			end repeat
