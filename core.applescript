@@ -2,8 +2,8 @@
 
 --	Written by			Rob Wells
 --	Created on			2012-12-15
---	Last updated			2013-05-25
---	Version:			1.83
+--	Last updated			2013-06-08
+--	Version:			1.84
 
 --	This is the core page generator. It contains all of the code needed by any of the four desks but this script should not be used by itself.
 --	Instead a desk name should be entered in the genPrompt() call on line 24, and then saved as desk-specific application with the proper icon.
@@ -16,7 +16,6 @@ global fileDate -- The short date used to name the InDesign files, set in create
 property freshPagesFolder : "Server:Production resources:Master pages:Fresh pages:"
 -- Path to the InDesign master document
 property masterDocument : "Server:Production resources:Master pages:CS4 Master.indd"
-
 
 -- Running code --
 tell application "Adobe InDesign CS5.5" to set user interaction level of script preferences to never interact -- Suppresses dialogs and alerts
@@ -184,7 +183,7 @@ on create_pageDate(theDay, theMonth, theDate, theYear)
 			set secondMonth to ""
 		end if
 		
-		-- Check if the weekend spans a month boundary
+		-- Check if the weekend spans a year boundary
 		if (sun's year as string) is not theYear then
 			-- Sunday year with leading hyphen
 			set secondYear to ("-" & (sun's year as string))
@@ -293,18 +292,16 @@ on drawEmbargoBox(pageType)
 	tell application "Adobe InDesign CS5.5"
 		tell the front document
 			if pageType is "single" then
-				tell page 1
-					set eBox to make new text frame with properties {geometric bounds:{14.0, -150.0, 114.0, -50.0}, contents:"Embargoed stories"}
-				end tell
-				set the applied object style of eBox to object style "News NIB box tint" -- Set separately as it throws an error if you try to do it on creation
-				set locked of eBox to true
+				set pageNum to 1
 			else if pageType is "spread" then
-				tell page 2
-					set eBox to make new text frame with properties {geometric bounds:{14.0, -150.0, 114.0, -50.0}, contents:"Embargoed stories"}
-				end tell
-				set the applied object style of eBox to object style "News NIB box tint"
-				set locked of eBox to true
+				set pageNum to 2
 			end if
+			
+			tell page pageNum
+				set eBox to make new text frame with properties {geometric bounds:{14.0, -150.0, 114.0, -50.0}, contents:"Embargoed stories"}
+			end tell
+			set the applied object style of eBox to object style "News NIB box tint" -- Set separately as it throws an error if you try to do it on creation
+			set locked of eBox to true
 		end tell
 	end tell
 end drawEmbargoBox
