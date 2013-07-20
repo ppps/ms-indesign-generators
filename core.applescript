@@ -2,8 +2,8 @@
 
 --	Written by			Rob Wells
 --	Created on			2012-12-15
---	Last updated			2013-06-08
---	Version:			1.84
+--	Last updated			2013-07-20
+--	Version:			1.85
 
 --	This is the core page generator. It contains all of the code needed by any of the four desks but this script should not be used by itself.
 --	Instead a desk name should be entered in the genPrompt() call on line 24, and then saved as desk-specific application with the proper icon.
@@ -297,8 +297,10 @@ on drawEmbargoBox(pageType)
 				set pageNum to 2
 			end if
 			
+			set workLayer to the first layer whose name is "Work"
+			
 			tell page pageNum
-				set eBox to make new text frame with properties {geometric bounds:{14.0, -150.0, 114.0, -50.0}, contents:"Embargoed stories"}
+				set eBox to make new text frame with properties {item layer:workLayer, geometric bounds:{14.0, -150.0, 114.0, -50.0}, contents:"Embargoed stories"}
 			end tell
 			set the applied object style of eBox to object style "News NIB box tint" -- Set separately as it throws an error if you try to do it on creation
 			set locked of eBox to true
