@@ -412,7 +412,7 @@ on newsGen(mastersToGenerate, theDay)
 		else if theDay is in p14_days then
 			pageGen("single", "Feat-Letters-L", "14_Letters", "14")
 		else if theDay is "Saturday" then
-			pageGen("spread", "Feat-Letters-Split", "10-11_Letters", "10")
+			pageGen("spread", "Feat-Letters-Split", "18-19_Letters", "18")
 		end if
 	end if
 
@@ -472,7 +472,7 @@ on featsGen(mastersToGenerate, theDay)
 		else if theDay is in p14_days then
 			pageGen("single", "Feat-Letters-L", "14_Letters", "14")
 		else if theDay is "Saturday" then
-			pageGen("spread", "Feat-Letters-Split", "10-11_Letters", "10")
+			pageGen("spread", "Feat-Letters-Split", "18-19_Letters", "18")
 		end if
 	end if
 
