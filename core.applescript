@@ -399,7 +399,7 @@ on newsGen(mastersToGenerate, theDay)
 		if theDay is not "Saturday" then
 			pageGen("spread", "Feat-TV", "12-13_TV", "12")
 		else if theDay is "Saturday" then
-			pageGen("spread", "Feat-SatTV", "18-19_TV", "18")
+			pageGen("single", "Feat-Blank-R", "15_Features", "15")
 		end if
 	end if
 
@@ -417,7 +417,7 @@ on newsGen(mastersToGenerate, theDay)
 	end if
 
 	if "Struggle" is in mastersToGenerate then
-		pageGen("single", "Feat-Struggle-L", "14_Struggle", "14")
+		pageGen("spread", "Feat-Struggle-Split", "8-9_Struggle", "8")
 	end if
 
 	if "Red List" is in mastersToGenerate then
