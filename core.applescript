@@ -56,7 +56,7 @@ on genPrompt(desk)
 		set the end of days_list to "No day — working ahead" -- Adds an extra day option that news and sport don't need
 		if desk is "Features" then
 			set weekday_pages to {"Spread", "10", "12-13", "Letters", "Arts", "Arts split"}
-			set weekend_pages to {"Spread", "News reviews — split", "News reviews — singles", "15", "16-17", "Letters"}
+			set weekend_pages to {"Spread", "10-11 — split", "10-11 — singles", "14", "15", "16-17", "Letters"}
 			set ahead_pages to {"Spread", "10", "12-13", "News reviews — split", "News reviews — singles", "15", "16-17", "Letters", "Arts", "Arts split"}
 		else if desk is "Arts" then
 			set weekday_pages to {"Arts (p11)", "Arts split"}
@@ -444,14 +444,17 @@ on featsGen(mastersToGenerate, theDay)
 		pageGen("spread", "Feat-TV", "12-13_TV", "12")
 	end if
 
-	if "News reviews — split" is in mastersToGenerate then
-		pageGen("spread", "Feat-NewsReview-Split", "8-9_NewsReview", "8")
+	if "10-11 — split" is in mastersToGenerate then
+		pageGen("spread", "Feat-Blank-Split", "10-11_Features", "10")
 	end if
-	if "News reviews — singles" is in mastersToGenerate then
-		pageGen("single", "Feat-NewsReview-L", "8_NewsReview", "8")
-		pageGen("single", "Feat-NewsReview-R", "9_NewsReview", "9")
+	if "10-11 — split" is in mastersToGenerate then
+		pageGen("single", "Feat-Blank-L", "10_Features", "10")
+		pageGen("single", "Feat-Blank-R", "11_Features", "11")
 	end if
 
+	if "14" is in mastersToGenerate then
+		pageGen("single", "Feat-Blank-L", "14_Features", "14")
+	end if
 	if "15" is in mastersToGenerate then
 		pageGen("single", "Feat-Blank-R", "15_Features", "15")
 	end if
