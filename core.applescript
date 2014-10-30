@@ -447,7 +447,7 @@ on featsGen(mastersToGenerate, theDay)
 	if "10-11 — split" is in mastersToGenerate then
 		pageGen("spread", "Feat-Blank-Split", "10-11_Features", "10")
 	end if
-	if "10-11 — split" is in mastersToGenerate then
+	if "10-11 — singles" is in mastersToGenerate then
 		pageGen("single", "Feat-Blank-L", "10_Features", "10")
 		pageGen("single", "Feat-Blank-R", "11_Features", "11")
 	end if
