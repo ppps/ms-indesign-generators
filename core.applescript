@@ -2,8 +2,8 @@
 
 --	Written by			Rob Wells
 --	Created on			2012-12-15
---	Last updated			2013-10-13
---	Version:			1.86
+--	Last updated			2015-03-11
+--	Version:			1.87
 
 --	This is the core page generator. It contains all of the code needed by any of the four desks but this script should not be used by itself.
 --	Instead a desk name should be entered in the genPrompt() call on line 24, and then saved as desk-specific application with the proper icon.
@@ -55,9 +55,9 @@ on genPrompt(desk)
 	else if desk is "Features" or desk is "Arts" then
 		set the end of days_list to "No day — working ahead" -- Adds an extra day option that news and sport don't need
 		if desk is "Features" then
-			set weekday_pages to {"Spread", "10", "12-13", "Letters", "Arts", "Arts split"}
+			set weekday_pages to {"Spread", "10", "13", "Letters", "Arts", "Arts split"}
 			set weekend_pages to {"Spread", "10-11 — split", "10-11 — singles", "14", "15", "16-17", "Letters"}
-			set ahead_pages to {"Spread", "10", "12-13", "News reviews — split", "News reviews — singles", "15", "16-17", "Letters", "Arts", "Arts split"}
+			set ahead_pages to {"Spread", "10", "13", "News reviews — split", "News reviews — singles", "15", "16-17", "Letters", "Arts", "Arts split"}
 		else if desk is "Arts" then
 			set weekday_pages to {"Arts (p11)", "Arts split"}
 			set weekend_pages to {"16-17 (weekend)", "Arts split", "Arts (p11)"}
@@ -320,16 +320,16 @@ on customEdition()
 	-- InDesign master name (Feat-Letters-Split) and item 4 of slugs_list must be "Letters"
 	--
 	-- The human-friendly names used in the TextWrangler file
-	set human_list to {"Front", "SatFront", "Home_S", "Home_L", "Home_R", "Foreign_S", "Foreign_L", "Foreign_R", "Struggle_S", "Struggle_L", "Struggle_R", "NewsReviews_S", "NewsReviews_L", "NewsReviews_R", "Spread", "TV", "SatTV", "Letters_S", "Letters_L", "Letters_R", "RedList", "Feat_S", "Feat_L", "Feat_R", "Arts_Ents", "Arts_S", "Arts_L", "Arts_R", "Back", "Sport_S", "Sport_L", "Sport_R", "Racing_L", "Racing_R", "Blank_S", "Blank_L", "Blank_R"}
+	set human_list to {"Front", "SatFront", "Home_S", "Home_L", "Home_R", "Foreign_S", "Foreign_L", "Foreign_R", "Struggle_S", "Struggle_L", "Struggle_R", "NewsReviews_S", "NewsReviews_L", "NewsReviews_R", "Spread", "TV_S", "TV_L", "TV_R", "Letters_S", "Letters_L", "Letters_R", "RedList", "Feat_S", "Feat_L", "Feat_R", "Arts_Ents", "Arts_S", "Arts_L", "Arts_R", "Back", "Sport_S", "Sport_L", "Sport_R", "Racing_L", "Racing_R", "Blank_S", "Blank_L", "Blank_R"}
 	-- The InDesign master names
-	set masters_list to {"News-Front", "News-SatFront", "News-Home-Split", "News-Home-L", "News-Home-R", "News-Foreign-Split", "News-Foreign-L", "News-Foreign-R", "Feat-Struggle-Split", "Feat-Struggle-L", "Feat-Struggle-R", "Feat-NewsReview-Split", "Feat-NewsReview-L", "Feat-NewsReview-R", "Feat-Spread", "Feat-TV", "Feat-SatTV", "Feat-Letters-Split", "Feat-Letters-L", "Feat-Letters-R", "Feat-RedList", "Feat-Blank-Split", "Feat-Blank-L", "Feat-Blank-R", "Arts-Ents-Split", "Arts-Blank-Split", "Arts-Blank-L", "Arts-Blank-R", "Sprt-Back", "Sprt-Blank-Split", "Sprt-Blank-L", "Sprt-Blank-R", "Sprt-Racing-L", "Sprt-Racing-R", "X-Blank-Split", "X-Blank-L", "X-Blank-R"}
+	set masters_list to {"News-Front", "News-SatFront", "News-Home-Split", "News-Home-L", "News-Home-R", "News-Foreign-Split", "News-Foreign-L", "News-Foreign-R", "Feat-Struggle-Split", "Feat-Struggle-L", "Feat-Struggle-R", "Feat-NewsReview-Split", "Feat-NewsReview-L", "Feat-NewsReview-R", "Feat-Spread", "Feat-TV-Split", "Feat-TV-L", "Feat-TV-R", "Feat-Letters-Split", "Feat-Letters-L", "Feat-Letters-R", "Feat-RedList", "Feat-Blank-Split", "Feat-Blank-L", "Feat-Blank-R", "Arts-Ents-Split", "Arts-Blank-Split", "Arts-Blank-L", "Arts-Blank-R", "Sprt-Back", "Sprt-Blank-Split", "Sprt-Blank-L", "Sprt-Blank-R", "Sprt-Racing-L", "Sprt-Racing-R", "X-Blank-Split", "X-Blank-L", "X-Blank-R"}
 	-- Slugs to use in the file name
-	set slugs_list to {"Front", "Front", "Home", "Home", "Home", "Foreign", "Foreign", "Foreign", "Struggle", "Struggle", "Struggle", "NewsReviews", "NewsReview", "NewsReview", "Spread", "TV", "TV", "Letters", "Letters", "Letters", "RedList", "Features", "Feature", "Feature", "Arts-Ents", "Arts", "Arts", "Arts", "Back", "Sport", "Sport", "Sport", "Racing", "Racing", "BLANK", "BLANK", "BLANK"}
+	set slugs_list to {"Front", "Front", "Home", "Home", "Home", "Foreign", "Foreign", "Foreign", "Struggle", "Struggle", "Struggle", "NewsReviews", "NewsReview", "NewsReview", "Spread", "TV", "TV", "Features", "Letters", "Letters", "Letters", "RedList", "Features", "Feature", "Feature", "Arts-Ents", "Arts", "Arts", "Arts", "Back", "Sport", "Sport", "Sport", "Racing", "Racing", "BLANK", "BLANK", "BLANK"}
 
 	-- Single-page masters (used to set pageType)
-	set singles_list to {"News-Front", "News-SatFront", "News-Home-L", "News-Home-R", "News-Foreign-L", "News-Foreign-R", "Feat-Struggle-L", "Feat-Struggle-R", "Feat-NewsReview-L", "Feat-NewsReview-R", "Feat-Letters-L", "Feat-Letters-R", "Feat-RedList", "Feat-Blank-L", "Feat-Blank-R", "Arts-Blank-L", "Arts-Blank-R", "Sprt-Back", "Sprt-Blank-L", "Sprt-Blank-R", "Sprt-Racing-L", "Sprt-Racing-R", "X-Blank-L", "X-Blank-R"}
+	set singles_list to {"News-Front", "News-SatFront", "News-Home-L", "News-Home-R", "News-Foreign-L", "News-Foreign-R", "Feat-Struggle-L", "Feat-Struggle-R", "Feat-NewsReview-L", "Feat-NewsReview-R", "Feat-TV-L", "Feat-TV-R", "Feat-Letters-L", "Feat-Letters-R", "Feat-RedList", "Feat-Blank-L", "Feat-Blank-R", "Arts-Blank-L", "Arts-Blank-R", "Sprt-Back", "Sprt-Blank-L", "Sprt-Blank-R", "Sprt-Racing-L", "Sprt-Racing-R", "X-Blank-L", "X-Blank-R"}
 	-- Spread masters (used to set pageType)
-	set spreads_list to {"News-Home-Split", "News-Foreign-Split", "Feat-Struggle-Split", "Feat-NewsReview-Split", "Feat-Spread", "Feat-TV", "Feat-SatTV", "Feat-Letters-Split", "Feat-Blank-Split", "Arts-Ents-Split", "Arts-Blank-Split", "Sprt-Blank-Split", "X-Blank-Split"}
+	set spreads_list to {"News-Home-Split", "News-Foreign-Split", "Feat-Struggle-Split", "Feat-NewsReview-Split", "Feat-Spread", "Feat-TV-Split", "Feat-Letters-Split", "Feat-Blank-Split", "Arts-Ents-Split", "Arts-Blank-Split", "Sprt-Blank-Split", "X-Blank-Split"}
 
 	tell application "TextWrangler"
 		tell text 1 of text window 1
@@ -397,7 +397,7 @@ on newsGen(mastersToGenerate, theDay)
 
 	if "TV" is in mastersToGenerate then
 		if theDay is not "Saturday" then
-			pageGen("spread", "Feat-TV", "12-13_TV", "12")
+			pageGen("single", "Feat-TV-L", "12_TV", "12")
 		else if theDay is "Saturday" then
 			pageGen("single", "Feat-Blank-R", "15_Features", "15")
 		end if
@@ -440,8 +440,8 @@ on featsGen(mastersToGenerate, theDay)
 		pageGen("single", "Feat-Blank-L", "10_Features", "10")
 	end if
 
-	if "12-13" is in mastersToGenerate then
-		pageGen("spread", "Feat-TV", "12-13_TV", "12")
+	if "13" is in mastersToGenerate then
+		pageGen("single", "Feat-TV-R", "13_Features", "13")
 	end if
 
 	if "10-11 — split" is in mastersToGenerate then
