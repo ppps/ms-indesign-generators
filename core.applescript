@@ -56,12 +56,12 @@ on genPrompt(desk)
 		set the end of days_list to "No day — working ahead" -- Adds an extra day option that news and sport don't need
 		if desk is "Features" then
 			set weekday_pages to {"Spread", "10", "13", "Letters", "Arts", "Arts split"}
-			set weekend_pages to {"Spread", "10-11 — split", "10-11 — singles", "14", "15", "16-17", "Letters"}
-			set ahead_pages to {"Spread", "10", "13", "News reviews — split", "News reviews — singles", "15", "16-17", "Letters", "Arts", "Arts split"}
+			set weekend_pages to {"Spread", "9", "10-11 — split", "10-11 — singles", "15", "16-17", "Letters", "Ents"}
+			set ahead_pages to {"Spread", "9", "10", "13", "News reviews — split", "News reviews — singles", "15", "16-17", "Letters", "Arts", "Arts split", "Ents"}
 		else if desk is "Arts" then
 			set weekday_pages to {"Arts (p11)", "Arts split"}
-			set weekend_pages to {"16-17 (weekend)", "Arts split", "Arts (p11)"}
-			set ahead_pages to {"Arts (p11)", "Arts split", "16-17 (weekend)"}
+			set weekend_pages to {"16-17 (weekend)", "Arts split", "Arts (p11)", "Ents"}
+			set ahead_pages to {"Arts (p11)", "Arts split", "16-17 (weekend)", "Ents"}
 		end if
 	end if
 
@@ -444,6 +444,9 @@ on featsGen(mastersToGenerate, theDay)
 		pageGen("single", "Feat-TV-R", "13_Features", "13")
 	end if
 
+	if "9" is in mastersToGenerate then
+		pageGen("single", "Feat-Blank-R", "9_Features", "9")
+	end if
 	if "10-11 — split" is in mastersToGenerate then
 		pageGen("spread", "Feat-Blank-Split", "10-11_Features", "10")
 	end if
@@ -452,9 +455,7 @@ on featsGen(mastersToGenerate, theDay)
 		pageGen("single", "Feat-Blank-R", "11_Features", "11")
 	end if
 
-	if "14" is in mastersToGenerate then
-		pageGen("single", "Feat-Blank-L", "14_Features", "14")
-	end if
+
 	if "15" is in mastersToGenerate then
 		pageGen("single", "Feat-Blank-R", "15_Features", "15")
 	end if
@@ -483,6 +484,11 @@ on featsGen(mastersToGenerate, theDay)
 	if "Arts split" is in mastersToGenerate then
 		pageGen("spread", "Arts-Blank-Split", "10-11_Arts", "10")
 	end if
+
+	if "Ents" is in mastersToGenerate then
+		pageGen("single", "Feat-Ents-L", "14_Ents", "14")
+	end if
+
 end featsGen
 
 
@@ -499,6 +505,11 @@ on artsGen(mastersToGenerate)
 	if "Arts split" is in mastersToGenerate then -- Creates an Arts split-spread (10-11)
 		pageGen("spread", "Arts-Blank-Split", "10-11_Arts", "10")
 	end if
+
+	if "Ents" is in mastersToGenerat then
+		pageGen("single", "Feat-Ents-L", "14_Ents", "14")
+	end if
+
 end artsGen
 
 
