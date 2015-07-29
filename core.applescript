@@ -47,7 +47,7 @@ on genPrompt(desk)
 	if desk is "News" or desk is "Sport" then -- This if block sets the page options presented to the user
 		if desk is "News" then
 			set weekday_pages to {"News pages", "TV", "Letters"}
-			set weekend_pages to {"News pages", "TV", "Letters", "Struggle", "Red List"}
+			set weekend_pages to {"News pages", "TV", "Letters", "Struggle", "Struggle split", "Red List"}
 		else if desk is "Sport" then
 			set weekday_pages to {"Two pages", "Three pages", "Three pages with split", "Extra left page", "Extra right page", "Extra split"}
 			set weekend_pages to {"Four pages", "Four pages with split", "Racing only", "Extra left page", "Extra right page", "Extra split"}
@@ -417,6 +417,9 @@ on newsGen(mastersToGenerate, theDay)
 	end if
 
 	if "Struggle" is in mastersToGenerate then
+		pageGen("single", "Feat-Struggle-L", "8_Struggle", "8")
+	end if
+	if "Struggle split" is in mastersToGenerate then
 		pageGen("spread", "Feat-Struggle-Split", "8-9_Struggle", "8")
 	end if
 
