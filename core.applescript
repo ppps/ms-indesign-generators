@@ -509,7 +509,7 @@ on artsGen(mastersToGenerate)
 		pageGen("spread", "Arts-Blank-Split", "10-11_Arts", "10")
 	end if
 
-	if "Ents" is in mastersToGenerat then
+	if "Ents" is in mastersToGenerate then
 		pageGen("single", "Feat-Ents-L", "14_Ents", "14")
 	end if
 
